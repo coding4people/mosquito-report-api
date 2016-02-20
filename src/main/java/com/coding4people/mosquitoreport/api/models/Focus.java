@@ -1,13 +1,23 @@
 package com.coding4people.mosquitoreport.api.models;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+
+@DynamoDBTable(tableName = "focus")
 public class Focus {
+    @DynamoDBHashKey
     private String guid;
     
+    @DynamoDBRangeKey
+    private String createAt;
+    
+    @DynamoDBAttribute
     private String longitude;
     
+    @DynamoDBAttribute
     private String latitude;
-    
-    private String createAt;
 
     public String getGuid() {
         return guid;
