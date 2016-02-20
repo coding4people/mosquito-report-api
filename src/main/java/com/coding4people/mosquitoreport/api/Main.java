@@ -6,7 +6,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.glassfish.grizzly.http.server.HttpServer;
+import org.glassfish.jersey.CommonProperties;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
+import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 
@@ -17,9 +19,15 @@ public class Main {
     public static final String BASE_URI = "http://0.0.0.0:9000/";
 
     public static ResourceConfig createApp() {
-        return new ResourceConfig().property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true)
-                .packages("com.coding4people.mosquitoreport.api").register(new FactoryBinder())
+        return commonConfig()
+                .register(new FactoryBinder())
                 .register(new RepositoryBinder());
+    }
+    
+    public static ResourceConfig commonConfig() {
+        return new ResourceConfig().property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true)
+                .property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true)
+                .register(JacksonFeature.class);
     }
 
     public static void main(String[] args) throws IOException {
