@@ -1,3 +1,3 @@
-# Mosquito Map (temporary name)
+# MosquitoReport
 
-[![Build Status](https://travis-ci.org/coding4people/mosquitomap-api.svg)](https://travis-ci.org/coding4people/mosquitomap-api)
+[![Build Status](https://travis-ci.org/coding4people/mosquito-report-api.svg)](https://travis-ci.org/coding4people/mosquito-report-api)

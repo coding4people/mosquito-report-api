@@ -1,4 +1,4 @@
-package com.coding4people.mosquitomap.api.controllers;
+package com.coding4people.mosquitoreport.api.controllers;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

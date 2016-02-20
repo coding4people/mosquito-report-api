@@ -1,4 +1,4 @@
-package com.coding4people.mosquitomap.api;
+package com.coding4people.mosquitoreport.api;
 
 import org.glassfish.jersey.CommonProperties;
 import org.glassfish.jersey.jackson.internal.FilteringJacksonJaxbJsonProvider;

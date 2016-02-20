@@ -1,4 +1,4 @@
-package com.coding4people.mosquitomap.api.controllers;
+package com.coding4people.mosquitoreport.api.controllers;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,8 +8,8 @@ import javax.ws.rs.core.Response;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Test;
 
-import com.coding4people.mosquitomap.api.WithServer;
-import com.coding4people.mosquitomap.api.controllers.FocusController.FocusPostInput;
+import com.coding4people.mosquitoreport.api.WithServer;
+import com.coding4people.mosquitoreport.api.controllers.FocusController.FocusPostInput;
 
 public class FocusControllerTest extends WithServer {
     @Override

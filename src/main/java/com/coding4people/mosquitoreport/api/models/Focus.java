@@ -1,4 +1,4 @@
-package com.coding4people.mosquitomap.api.models;
+package com.coding4people.mosquitoreport.api.models;
 
 public class Focus {
     private String guid;

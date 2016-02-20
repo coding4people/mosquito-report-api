@@ -4,10 +4,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.coding4people</groupId>
-    <artifactId>mosquitomap-api</artifactId>
+    <artifactId>mosquito-report-api</artifactId>
     <packaging>jar</packaging>
     <version>0.0.1</version>
-    <name>mosquitomap-api</name>
+    <name>mosquito-report-api</name>
 
     <dependencyManagement>
         <dependencies>
@@ -77,7 +77,7 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>com.coding4people.mosquitomap.api.Main</mainClass>
+                    <mainClass>com.coding4people.mosquitoreport.api.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>
@@ -86,7 +86,7 @@
                     <descriptor>src/assembly/dep.xml</descriptor>
                     <archive>
                         <manifest>
-                            <mainClass>com.coding4people.mosquitomap.api.Main</mainClass>
+                            <mainClass>com.coding4people.mosquitoreport.api.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -113,15 +113,15 @@
     <distributionManagement>
         <site>
             <id>s3.site</id>
-            <url>s3://com.coding4people.mosquitomap.api/site</url>
+            <url>s3://com.coding4people.mosquito-report-api/site</url>
         </site>
         <repository>
             <id>s3.release</id>
-            <url>s3://com.coding4people.mosquitomap.api/release</url>
+            <url>s3://com.coding4people.mosquito-report-api/release</url>
         </repository>
         <snapshotRepository>
             <id>s3.snapshot</id>
-            <url>s3://com.coding4people.mosquitomap.api/snapshot</url>
+            <url>s3://com.coding4people.mosquito-report-api/snapshot</url>
         </snapshotRepository>
     </distributionManagement>
 

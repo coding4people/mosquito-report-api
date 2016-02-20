@@ -1,4 +1,4 @@
-package com.coding4people.mosquitomap.api;
+package com.coding4people.mosquitoreport.api;
 
 import java.io.IOException;
 import java.net.URI;
@@ -15,7 +15,7 @@ public class Main {
 
     public static ResourceConfig createApp() {
         return new ResourceConfig().property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true)
-                .packages("com.coding4people.mosquitomap.api");
+                .packages("com.coding4people.mosquitoreport.api");
     }
 
     public static void main(String[] args) throws IOException {
