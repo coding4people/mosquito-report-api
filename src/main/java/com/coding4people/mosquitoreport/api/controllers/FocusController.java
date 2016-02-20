@@ -23,8 +23,7 @@ public class FocusController {
     public Focus post(@Valid FocusPostInput input) {
         Focus focus = new Focus();
         focus.setGuid(java.util.UUID.randomUUID().toString());
-        focus.setLatitude(input.getLatitude());
-        focus.setLongitude(input.getLongitude());
+        focus.setLatLon(input.getLatLon());
         focus.setCreateAt(Long.toString(new Date().getTime()));
         
         focusRepository.save(focus);
@@ -34,25 +33,14 @@ public class FocusController {
     
     public static class FocusPostInput {
         @NotNull
-        private String longitude;
-        
-        @NotNull
-        private String latitude;
+        private String latLon;
 
-        public String getLongitude() {
-            return longitude;
+        public String getLatLon() {
+            return latLon;
         }
 
-        public void setLongitude(String longitude) {
-            this.longitude = longitude;
-        }
-
-        public String getLatitude() {
-            return latitude;
-        }
-
-        public void setLatitude(String latitude) {
-            this.latitude = latitude;
+        public void setLatLon(String latlon) {
+            this.latLon = latlon;
         }
     }
 }

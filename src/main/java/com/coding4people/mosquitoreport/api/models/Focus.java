@@ -14,11 +14,8 @@ public class Focus {
     private String createAt;
     
     @DynamoDBAttribute
-    private String longitude;
+    private String latLon;
     
-    @DynamoDBAttribute
-    private String latitude;
-
     public String getGuid() {
         return guid;
     }
@@ -26,21 +23,13 @@ public class Focus {
     public void setGuid(String guid) {
         this.guid = guid;
     }
-
-    public String getLongitude() {
-        return longitude;
+    
+    public String getLatLon() {
+        return latLon;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
+    public void setLatLon(String latLon) {
+        this.latLon = latLon;
     }
 
     public String getCreateAt() {
