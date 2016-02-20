@@ -20,7 +20,7 @@ public class DynamoDBMapperFactory implements Factory<DynamoDBMapper> {
         mapper = new DynamoDBMapper(client,
                 new DynamoDBMapperConfig.Builder()
                         .withTableNameOverride(TableNameOverride.withTableNamePrefix(Optional
-                                .ofNullable(env.get("MOSQUITO_REPORT_DYNAMODB_TABLE_PREFIX")).orElse("localhost")))
+                                .ofNullable(env.get("MOSQUITO_REPORT_DYNAMODB_TABLE_PREFIX")).orElse("localhost.")))
                 .build());
     }
 
