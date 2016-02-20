@@ -10,12 +10,16 @@ import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 
+import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
+import com.coding4people.mosquitoreport.api.repositories.RepositoryBinder;
+
 public class Main {
     public static final String BASE_URI = "http://0.0.0.0:9000/";
 
     public static ResourceConfig createApp() {
         return new ResourceConfig().property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true)
-                .packages("com.coding4people.mosquitoreport.api");
+                .packages("com.coding4people.mosquitoreport.api").register(new FactoryBinder())
+                .register(new RepositoryBinder());
     }
 
     public static void main(String[] args) throws IOException {

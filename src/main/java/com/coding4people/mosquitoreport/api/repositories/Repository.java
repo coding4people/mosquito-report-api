@@ -55,4 +55,8 @@ abstract public class Repository<T> {
         
         return t;
     }
+    
+    public void save(T o) {
+        mapper.save(o);
+    }
 }
