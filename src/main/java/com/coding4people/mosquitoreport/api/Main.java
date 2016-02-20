@@ -14,6 +14,7 @@ import org.glassfish.jersey.server.ServerProperties;
 
 import com.coding4people.mosquitoreport.api.controllers.FocusController;
 import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
+import com.coding4people.mosquitoreport.api.indexers.IndexerBinder;
 import com.coding4people.mosquitoreport.api.repositories.RepositoryBinder;
 
 public class Main {
@@ -23,6 +24,7 @@ public class Main {
         return commonConfig()
                 .register(FocusController.class)
                 .register(new FactoryBinder())
+                .register(new IndexerBinder())
                 .register(new RepositoryBinder());
     }
     
