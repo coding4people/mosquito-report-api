@@ -6,7 +6,7 @@
     <groupId>com.coding4people</groupId>
     <artifactId>mosquito-report-api</artifactId>
     <packaging>jar</packaging>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
     <name>mosquito-report-api</name>
 
     <dependencyManagement>
