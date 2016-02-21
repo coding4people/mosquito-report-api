@@ -31,7 +31,9 @@ public class PostFocusController {
         Focus focus = new Focus();
         focus.setGuid(java.util.UUID.randomUUID().toString());
         focus.setLatlon(input.getLatlon());
+        focus.setNotes(input.getNotes());
         focus.setAuthoruserguid(currentUser.getGuid());
+        focus.setThumbsup("0");
         focus.setCreateat(Long.toString(new Date().getTime()));
 
         focusRepository.save(focus);
@@ -43,6 +45,8 @@ public class PostFocusController {
     public static class FocusPostInput {
         @NotNull
         private String latlon;
+        
+        private String notes;
 
         public String getLatlon() {
             return latlon;
@@ -50,6 +54,14 @@ public class PostFocusController {
 
         public void setLatlon(String latlon) {
             this.latlon = latlon;
+        }
+
+        public String getNotes() {
+            return notes;
+        }
+
+        public void setNotes(String notes) {
+            this.notes = notes;
         }
     }
 }

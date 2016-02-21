@@ -158,7 +158,8 @@ curl -i http://api.mosquito.report/focus \
   -H 'Authorization: Token $token' \
   -H 'Content-Type: application/json' \
   --data '{
-    "latlon": "35.628611,-120.694152"
+    "latlon": "35.628611,-120.694152",
+    "notes": "Lots of tires near 2th Street"
   }'
 ```
 
