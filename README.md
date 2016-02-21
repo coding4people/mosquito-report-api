@@ -124,7 +124,10 @@ curl -i http://api.mosquito.report/auth/email \
 **Add new focus**
 
 ```
+token='your token'
+
 curl -i http://api.mosquito.report/focus \
+  -H 'Authorization: Token $token' \
   -H 'Content-Type: application/json' \
   --data '{
     "latlon": "35.628611,-120.694152"
