@@ -6,10 +6,10 @@
 
 **MosquitoReportAPI** is the REST API of this Project. Check the frontend source code at [https://github.com/coding4people/mosquito-report-www](https://github.com/coding4people/mosquito-report-www). Also check our [visual project](https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.visual.png) and [wirefrimes](https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.wireframe.png).
 
-<p align="center">
+<div>
   <img alt="Screenshot - Map" src="https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.screenshot.map.png">
   <img alt="Screenshot - Details" src="https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.screenshot.details.png">
-</p>
+</div>
 
 ## Hack Summit Hackathon
 
