@@ -38,8 +38,8 @@ abstract public class Indexer<T extends WithGuid> {
 
     @Inject
     Env env;
-    
-    //TODO create factory in order to inject thread configuration
+
+    // TODO create factory in order to inject thread configuration
     ExecutorService executor;
 
     AmazonCloudSearchDomain domain;
@@ -57,12 +57,12 @@ abstract public class Indexer<T extends WithGuid> {
             @Override
             public Void call() throws Exception {
                 indexSync(items);
-                
+
                 return null;
             }
         });
     }
-    
+
     private void indexSync(List<T> items) {
         try {
             String json = new ObjectMapper().writeValueAsString(items.stream().map(item -> {
@@ -72,7 +72,7 @@ abstract public class Indexer<T extends WithGuid> {
                 map.put("fields", item);
                 return map;
             }).collect(Collectors.toList()));
-            
+
             domain.uploadDocuments(new UploadDocumentsRequest().withContentType("application/json")
                     .withContentLength(Long.valueOf(json.length()))
                     .withDocuments(new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8))));
@@ -83,15 +83,19 @@ abstract public class Indexer<T extends WithGuid> {
     }
 
     public Object search(String latlonnw, String latlonse) {
-        //TODO avoid query injection
-        return domain.search(new SearchRequest().withQuery("fq=location:['" + latlonnw + "','" + latlonse + "']"));
+        // TODO avoid query injection
+        return domain.search(new SearchRequest()
+                //TODO find another way to discard query
+                .withQuery("-fake")
+                .withSize(30L)
+                .withFilterQuery("latlon:['" + latlonnw + "','" + latlonse + "']"));
     }
 
     @PostConstruct
     protected void postConstruct() {
-        //TODO get from env
+        // TODO get from env
         executor = Executors.newFixedThreadPool(10);
-        
+
         DescribeDomainsRequest describeDomainsRequest = new DescribeDomainsRequest().withDomainNames(getDomainName());
         List<DomainStatus> list = amazonCloudSearch.describeDomains(describeDomainsRequest).getDomainStatusList();
 

@@ -10,6 +10,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 
 import com.coding4people.mosquitoreport.api.indexers.FocusIndexer;
 import com.coding4people.mosquitoreport.api.models.Focus;
@@ -39,8 +40,9 @@ public class FocusController {
 
     @GET
     @Produces("application/json;charset=UTF-8")
-    public Object get(@Valid FocusGetInput input) {
-        return focusIndexer.search("");
+    public Object get(@QueryParam(value = "latlonnw") String latlonnw,
+            @QueryParam(value = "latlonse") String latlonse) {
+        return focusIndexer.search(latlonnw, latlonse);
     }
 
     public static class FocusPostInput {
@@ -55,18 +57,4 @@ public class FocusController {
             this.latlon = latlon;
         }
     }
-
-    public static class FocusGetInput {
-        @NotNull
-        private String latlon;
-
-        public String getLatlon() {
-            return latlon;
-        }
-
-        public void setLatlon(String latlon) {
-            this.latlon = latlon;
-        }
-    }
-
 }
