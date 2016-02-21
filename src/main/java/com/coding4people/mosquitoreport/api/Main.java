@@ -17,6 +17,7 @@ import com.coding4people.mosquitoreport.api.buckets.BucketBinder;
 import com.coding4people.mosquitoreport.api.controllers.AuthEmailController;
 import com.coding4people.mosquitoreport.api.controllers.FocusController;
 import com.coding4people.mosquitoreport.api.controllers.PictureController;
+import com.coding4people.mosquitoreport.api.controllers.SignUpController;
 import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
 import com.coding4people.mosquitoreport.api.indexers.IndexerBinder;
 import com.coding4people.mosquitoreport.api.repositories.RepositoryBinder;
@@ -30,6 +31,7 @@ public class Main {
                 .register(AuthEmailController.class)
                 .register(FocusController.class)
                 .register(PictureController.class)
+                .register(SignUpController.class)
                 
                 // Binders
                 .register(new BucketBinder())
