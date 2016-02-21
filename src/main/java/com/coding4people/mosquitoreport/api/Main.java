@@ -14,6 +14,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 
 import com.coding4people.mosquitoreport.api.buckets.BucketBinder;
+import com.coding4people.mosquitoreport.api.controllers.AuthEmailController;
 import com.coding4people.mosquitoreport.api.controllers.FocusController;
 import com.coding4people.mosquitoreport.api.controllers.PictureController;
 import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
@@ -26,6 +27,7 @@ public class Main {
     public static ResourceConfig createApp() {
         return commonConfig()
                 // Controllers
+                .register(AuthEmailController.class)
                 .register(FocusController.class)
                 .register(PictureController.class)
                 
