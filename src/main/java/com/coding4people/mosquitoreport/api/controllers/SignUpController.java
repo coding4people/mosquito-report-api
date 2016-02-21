@@ -11,6 +11,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.coding4people.mosquitoreport.api.models.Email;
 import com.coding4people.mosquitoreport.api.models.User;
 import com.coding4people.mosquitoreport.api.repositories.EmailRepository;
@@ -50,10 +53,20 @@ public class SignUpController {
     }
 
     public static class SignUpInput {
-        @NotNull private String email;
-        @NotNull private String firstname;
-        @NotNull private String lastname;
-        @NotNull private String password;
+        @NotNull
+        @org.hibernate.validator.constraints.Email
+        private String email;
+        
+        @NotNull
+        @NotEmpty
+        private String firstname;
+        
+        private String lastname;
+        
+        @NotEmpty
+        @NotNull
+        @Length(min = 6)
+        private String password;
         
         public String getEmail() {
             return email;
