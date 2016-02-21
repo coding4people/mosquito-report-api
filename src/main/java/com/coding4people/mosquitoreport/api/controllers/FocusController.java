@@ -10,13 +10,17 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import com.coding4people.mosquitoreport.api.indexers.FocusIndexer;
 import com.coding4people.mosquitoreport.api.models.Focus;
 import com.coding4people.mosquitoreport.api.repositories.FocusRepository;
 
 @Path("/focus")
 public class FocusController {
-    @Inject FocusRepository focusRepository;
-    
+    @Inject
+    FocusRepository focusRepository;
+    @Inject
+    FocusIndexer focusIndexer;
+
     @POST
     @Consumes("application/json")
     @Produces("application/json;charset=UTF-8")
@@ -25,12 +29,13 @@ public class FocusController {
         focus.setGuid(java.util.UUID.randomUUID().toString());
         focus.setLatLon(input.getLatLon());
         focus.setCreateAt(Long.toString(new Date().getTime()));
-        
+
         focusRepository.save(focus);
-        
+        focusIndexer.index(focus);
+
         return focus;
     }
-    
+
     public static class FocusPostInput {
         @NotNull
         private String latLon;
@@ -43,4 +48,18 @@ public class FocusController {
             this.latLon = latlon;
         }
     }
+
+    public static class FocusGetInput {
+        @NotNull
+        private String latLon;
+
+        public String getLatLon() {
+            return latLon;
+        }
+
+        public void setLatLon(String latlon) {
+            this.latLon = latlon;
+        }
+    }
+
 }

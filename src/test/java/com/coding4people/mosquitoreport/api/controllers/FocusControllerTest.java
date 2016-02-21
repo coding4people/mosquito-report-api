@@ -14,12 +14,13 @@ import org.mockito.Mock;
 
 import com.coding4people.mosquitoreport.api.WithServer;
 import com.coding4people.mosquitoreport.api.controllers.FocusController.FocusPostInput;
+import com.coding4people.mosquitoreport.api.indexers.FocusIndexer;
 import com.coding4people.mosquitoreport.api.models.Focus;
 import com.coding4people.mosquitoreport.api.repositories.FocusRepository;
 
 public class FocusControllerTest extends WithServer {
-    @Mock
-    private FocusRepository focusRepository;
+    @Mock private FocusRepository focusRepository;
+    @Mock private FocusIndexer focusIndexer;
     
     @Override
     protected ResourceConfig configure() {
@@ -38,6 +39,7 @@ public class FocusControllerTest extends WithServer {
         assertEquals("application/json;charset=UTF-8", response.getHeaderString("Content-type"));
         
         verify(focusRepository).save(any(Focus.class));
+        verify(focusIndexer).index(any(Focus.class));
         Focus focus = response.readEntity(Focus.class);
         
         assertNotNull(focus.getGuid());
