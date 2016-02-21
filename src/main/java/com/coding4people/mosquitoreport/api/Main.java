@@ -24,6 +24,7 @@ import com.coding4people.mosquitoreport.api.exceptionmapper.ForbiddenExceptionMa
 import com.coding4people.mosquitoreport.api.exceptionmapper.InternalServerErrorExceptionMapper;
 import com.coding4people.mosquitoreport.api.exceptionmapper.NotFoundExceptionMapper;
 import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
+import com.coding4people.mosquitoreport.api.filters.CORSFilter;
 import com.coding4people.mosquitoreport.api.indexers.IndexerBinder;
 import com.coding4people.mosquitoreport.api.repositories.RepositoryBinder;
 
@@ -44,6 +45,9 @@ public class Main {
                 .register(ForbiddenExceptionMapper.class)
                 .register(InternalServerErrorExceptionMapper.class)
                 .register(NotFoundExceptionMapper.class)
+                
+                // Filters
+                .register(CORSFilter.class)
                 
                 // Binders
                 .register(new BucketBinder())
