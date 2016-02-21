@@ -4,6 +4,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @DynamoDBTable(tableName = "focus")
 public class Focus implements WithGuid {
@@ -21,6 +22,9 @@ public class Focus implements WithGuid {
     
     @DynamoDBAttribute
     private String thumbsup;
+    
+    @DynamoDBAttribute
+    private String authoruserguid;
     
     public String getGuid() {
         return guid;
@@ -60,5 +64,20 @@ public class Focus implements WithGuid {
 
     public void setThumbsup(String thumbsup) {
         this.thumbsup = thumbsup;
+    }
+    
+    @JsonIgnore
+    public Focus thumbsup() {
+        thumbsup = new Integer(Integer.parseInt(thumbsup) + 1).toString();
+        
+        return this;
+    }
+
+    public String getAuthoruserguid() {
+        return authoruserguid;
+    }
+
+    public void setAuthoruserguid(String authoruserguid) {
+        this.authoruserguid = authoruserguid;
     }
 }
