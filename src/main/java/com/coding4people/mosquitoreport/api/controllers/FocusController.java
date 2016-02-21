@@ -12,6 +12,7 @@ import javax.ws.rs.Produces;
 
 import com.coding4people.mosquitoreport.api.indexers.FocusIndexer;
 import com.coding4people.mosquitoreport.api.models.Focus;
+import com.coding4people.mosquitoreport.api.models.User;
 import com.coding4people.mosquitoreport.api.repositories.FocusRepository;
 
 @Path("/focus")
@@ -20,6 +21,8 @@ public class FocusController {
     FocusRepository focusRepository;
     @Inject
     FocusIndexer focusIndexer;
+    @Inject
+    User currentUser;
 
     @POST
     @Consumes("application/json")
@@ -28,6 +31,7 @@ public class FocusController {
         Focus focus = new Focus();
         focus.setGuid(java.util.UUID.randomUUID().toString());
         focus.setLatlon(input.getLatlon());
+        focus.setAuthoruserguid(currentUser.getGuid());
         focus.setCreateat(Long.toString(new Date().getTime()));
 
         focusRepository.save(focus);
