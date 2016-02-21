@@ -47,8 +47,7 @@ abstract public class Repository<T> {
     }
     
     public T load(String hash, String range) {
-        //TODO filter by range
-        return mapper.load(getType(), hash);
+        return mapper.load(getType(), hash, range);
     }
     
     public T loadOrNotFound(String hash) {
