@@ -8,7 +8,7 @@
 
 <div style="text-align:center">
   <img alt="Screenshot - Map" src="https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.screenshot.map.png">
-  <img alt="Screenshot - Add" src="https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.screenshot.add.png">
+  <img alt="Screenshot - Details" src="https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.screenshot.details.png">
 </div>
 
 ## Hack Summit Hackathon
