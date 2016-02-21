@@ -7,10 +7,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import javax.ws.rs.InternalServerErrorException;
 
 import com.amazonaws.services.cloudsearchdomain.AmazonCloudSearchDomain;
@@ -27,12 +31,16 @@ import com.coding4people.mosquitoreport.api.models.WithGuid;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+@Singleton
 abstract public class Indexer<T extends WithGuid> {
     @Inject
     AmazonCloudSearch amazonCloudSearch;
 
     @Inject
     Env env;
+    
+    //TODO create factory in order to inject thread configuration
+    ExecutorService executor;
 
     AmazonCloudSearchDomain domain;
 
@@ -43,7 +51,19 @@ abstract public class Indexer<T extends WithGuid> {
     }
 
     // TODO send to SQS in order to handle it asynchronously
+    // TODO implement recover and fallback
     public void index(List<T> items) {
+        executor.submit(new Callable<Void>() {
+            @Override
+            public Void call() throws Exception {
+                indexSync(items);
+                
+                return null;
+            }
+        });
+    }
+    
+    private void indexSync(List<T> items) {
         try {
             String json = new ObjectMapper().writeValueAsString(items.stream().map(item -> {
                 Map<String, Object> map = new HashMap<>();
@@ -62,12 +82,16 @@ abstract public class Indexer<T extends WithGuid> {
         }
     }
 
-    public Object search(String query) {
-        return domain.search(new SearchRequest().withQuery(query));
+    public Object search(String latlonnw, String latlonse) {
+        //TODO avoid query injection
+        return domain.search(new SearchRequest().withQuery("fq=location:['" + latlonnw + "','" + latlonse + "']"));
     }
 
     @PostConstruct
     protected void postConstruct() {
+        //TODO get from env
+        executor = Executors.newFixedThreadPool(10);
+        
         DescribeDomainsRequest describeDomainsRequest = new DescribeDomainsRequest().withDomainNames(getDomainName());
         List<DomainStatus> list = amazonCloudSearch.describeDomains(describeDomainsRequest).getDomainStatusList();
 
