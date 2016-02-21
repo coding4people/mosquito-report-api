@@ -4,11 +4,13 @@ import java.io.InputStream;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
+import javax.inject.Singleton;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 
+@Singleton
 abstract public class Bucket {
     @Inject AmazonS3Client amazonS3Client;
     
