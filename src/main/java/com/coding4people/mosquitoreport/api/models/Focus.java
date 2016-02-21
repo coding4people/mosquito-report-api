@@ -21,6 +21,7 @@ public class Focus implements WithGuid {
     private String notes;
     
     @DynamoDBAttribute
+    // There is a bug on DynamoDB local parsing numbers ):
     private String thumbsup;
     
     @DynamoDBAttribute
