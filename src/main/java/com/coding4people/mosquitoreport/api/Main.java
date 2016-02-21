@@ -18,6 +18,7 @@ import com.coding4people.mosquitoreport.api.controllers.AuthEmailController;
 import com.coding4people.mosquitoreport.api.controllers.FocusController;
 import com.coding4people.mosquitoreport.api.controllers.PictureController;
 import com.coding4people.mosquitoreport.api.controllers.SignUpController;
+import com.coding4people.mosquitoreport.api.controllers.ThumbsUpController;
 import com.coding4people.mosquitoreport.api.exceptionmapper.BadRequestExceptionMapper;
 import com.coding4people.mosquitoreport.api.exceptionmapper.ForbiddenExceptionMapper;
 import com.coding4people.mosquitoreport.api.exceptionmapper.InternalServerErrorExceptionMapper;
@@ -36,6 +37,7 @@ public class Main {
                 .register(FocusController.class)
                 .register(PictureController.class)
                 .register(SignUpController.class)
+                .register(ThumbsUpController.class)
                 
                 // Exception mappers
                 .register(BadRequestExceptionMapper.class)
