@@ -12,6 +12,7 @@ import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 
+import com.coding4people.mosquitoreport.api.buckets.BucketBinder;
 import com.coding4people.mosquitoreport.api.controllers.FocusController;
 import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
 import com.coding4people.mosquitoreport.api.indexers.IndexerBinder;
@@ -23,6 +24,7 @@ public class Main {
     public static ResourceConfig createApp() {
         return commonConfig()
                 .register(FocusController.class)
+                .register(new BucketBinder())
                 .register(new FactoryBinder())
                 .register(new IndexerBinder())
                 .register(new RepositoryBinder());
