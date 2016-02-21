@@ -25,7 +25,12 @@ public class CurrentUserFactory implements Factory<User> {
         }
 
         // TODO implement decent authorization algorithm
-        final String guid = new String(Base64.getDecoder().decode(authorization.substring(6)));
+        String guid;
+        try {
+            guid = new String(Base64.getDecoder().decode(authorization.substring(6)));
+        } catch (Throwable t) {
+            throw new ForbiddenException("Invalid authorization token");
+        }
 
         user = userRepository.load(guid);
 
