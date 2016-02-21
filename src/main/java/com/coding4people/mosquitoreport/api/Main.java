@@ -19,6 +19,7 @@ import com.coding4people.mosquitoreport.api.controllers.FocusController;
 import com.coding4people.mosquitoreport.api.controllers.PictureController;
 import com.coding4people.mosquitoreport.api.controllers.SignUpController;
 import com.coding4people.mosquitoreport.api.exceptionmapper.BadRequestExceptionMapper;
+import com.coding4people.mosquitoreport.api.exceptionmapper.ForbiddenExceptionMapper;
 import com.coding4people.mosquitoreport.api.exceptionmapper.InternalServerErrorExceptionMapper;
 import com.coding4people.mosquitoreport.api.exceptionmapper.NotFoundExceptionMapper;
 import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
@@ -38,6 +39,7 @@ public class Main {
                 
                 // Exception mappers
                 .register(BadRequestExceptionMapper.class)
+                .register(ForbiddenExceptionMapper.class)
                 .register(InternalServerErrorExceptionMapper.class)
                 .register(NotFoundExceptionMapper.class)
                 
