@@ -9,11 +9,13 @@ import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.CommonProperties;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 
 import com.coding4people.mosquitoreport.api.buckets.BucketBinder;
 import com.coding4people.mosquitoreport.api.controllers.FocusController;
+import com.coding4people.mosquitoreport.api.controllers.PictureController;
 import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
 import com.coding4people.mosquitoreport.api.indexers.IndexerBinder;
 import com.coding4people.mosquitoreport.api.repositories.RepositoryBinder;
@@ -23,7 +25,11 @@ public class Main {
 
     public static ResourceConfig createApp() {
         return commonConfig()
+                // Controllers
                 .register(FocusController.class)
+                .register(PictureController.class)
+                
+                // Binders
                 .register(new BucketBinder())
                 .register(new FactoryBinder())
                 .register(new IndexerBinder())
@@ -33,7 +39,8 @@ public class Main {
     public static ResourceConfig commonConfig() {
         return new ResourceConfig().property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true)
                 .property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true)
-                .register(JacksonFeature.class);
+                .register(JacksonFeature.class)
+                .register(MultiPartFeature.class);
     }
 
     public static void main(String[] args) throws IOException {
