@@ -2,8 +2,12 @@ package com.coding4people.mosquitoreport.api.indexers;
 
 import java.io.ByteArrayInputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
@@ -19,23 +23,39 @@ import com.amazonaws.services.cloudsearchv2.model.DomainStatus;
 import com.amazonaws.services.cloudsearchv2.model.ServiceEndpoint;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.coding4people.mosquitoreport.api.Env;
+import com.coding4people.mosquitoreport.api.models.WithGuid;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-abstract public class Indexer<T> {
-    @Inject AmazonCloudSearch amazonCloudSearch;
-    
-    @Inject Env env;
+abstract public class Indexer<T extends WithGuid> {
+    @Inject
+    AmazonCloudSearch amazonCloudSearch;
+
+    @Inject
+    Env env;
 
     AmazonCloudSearchDomain domain;
 
     abstract protected Class<T> getType();
-    
+
     public void index(T item) {
-        // TODO send to SQS in order to handle it asynchronously
+        this.index(Arrays.asList(item));
+    }
+
+    // TODO send to SQS in order to handle it asynchronously
+    public void index(List<T> items) {
         try {
-            domain.uploadDocuments(new UploadDocumentsRequest().withDocuments(new ByteArrayInputStream(
-                    new ObjectMapper().writeValueAsString(item).getBytes(StandardCharsets.UTF_8))));
+            String json = new ObjectMapper().writeValueAsString(items.stream().map(item -> {
+                Map<String, Object> map = new HashMap<>();
+                map.put("type", "add");
+                map.put("id", item.getGuid());
+                map.put("fields", item);
+                return map;
+            }).collect(Collectors.toList()));
+            
+            domain.uploadDocuments(new UploadDocumentsRequest().withContentType("application/json")
+                    .withContentLength(Long.valueOf(json.length()))
+                    .withDocuments(new ByteArrayInputStream(json.getBytes(StandardCharsets.UTF_8))));
         } catch (JsonProcessingException e) {
             // TODO log indexer errors
             e.printStackTrace();
@@ -54,13 +74,13 @@ abstract public class Indexer<T> {
         if (list.isEmpty()) {
             throw new InternalServerErrorException("Could not find CloudSearch domain: " + getDomainName());
         }
-        
+
         ServiceEndpoint searchService = list.get(0).getSearchService();
-        
+
         if (searchService.getEndpoint() == null) {
             throw new InternalServerErrorException("Could not find CloudSearch domain: " + getDomainName());
         }
-        
+
         domain = new AmazonCloudSearchDomainClient();
         domain.setEndpoint(searchService.getEndpoint());
     }
@@ -68,7 +88,7 @@ abstract public class Indexer<T> {
     protected String getDomainName() {
         return getPrefix() + getType().getAnnotation(DynamoDBTable.class).tableName();
     }
-    
+
     protected String getPrefix() {
         return Optional.ofNullable(env.get("MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX")).orElse("localhost") + "-";
     }

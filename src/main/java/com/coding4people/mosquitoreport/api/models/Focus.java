@@ -6,7 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 @DynamoDBTable(tableName = "focus")
-public class Focus {
+public class Focus implements WithGuid {
     @DynamoDBHashKey
     private String guid;
     
