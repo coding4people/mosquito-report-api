@@ -15,6 +15,9 @@ public class Picture {
     
     @DynamoDBAttribute
     private String guid;
+    
+    @DynamoDBAttribute
+    private String filename;
 
     public String getFocusguid() {
         return focusguid;
@@ -41,6 +44,14 @@ public class Picture {
     }
     
     public String getPath() {
-        return focusguid + "/" + getGuid();
+        return "pictures/" + focusguid + "/" + getGuid() + "/" + (filename == null ? "picture" : filename);
+    }
+
+    public String getFilename() {
+        return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 }
