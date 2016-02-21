@@ -10,9 +10,22 @@
 
 This project was built during the [Hack Summit Hackathon 2016](https://www.koding.com/Hackathon). More about our team:
 
-  * Leonardo Navarro @leonavarro [Behance](https://www.behance.net/leonavarro)
-  * Rogério Yokomizo @yokomizor
-  * Vinícius Souza @infodark
+**Leonardo Navarro**
+
+  * [https://www.behance.net/leonavarro](https://www.behance.net/leonavarro)
+  * [https://github.com/leonavarro](https://github.com/leonavarro)
+  
+ 
+**Rogério Yokomizo**
+
+  * [https://github.com/yokomizor](https://github.com/yokomizor)
+  * [https://twitter.com/yokomizor](twitter.com/yokomizor)
+  * [http://ro.ger.io](http://ro.ger.io)
+
+
+**Vinícius Souza @infodark**
+  
+  * [https://github.com/infodark](https://github.com/infodark)
   
   
 Special thanks to the guys of [Koding](https://www.koding.com/) for free hosting our app during the event.
@@ -20,7 +33,7 @@ Special thanks to the guys of [Koding](https://www.koding.com/) for free hosting
 
 ## Instalation
 
-### Koding VM
+**Koding VM**
 
 ```
 sudo add-apt-repository ppa:webupd8team/java
@@ -41,7 +54,7 @@ java -cp lib com.coding4people.mosquitoreport.api.Main
 ```
 
 
-### Docker
+**Docker**
 
 ```
 docker run --rm -it --name coding4people/mosquito-report-api -p 80:9000 \
@@ -54,7 +67,7 @@ docker run --rm -it --name coding4people/mosquito-report-api -p 80:9000 \
 ```
 
 
-### Running on your local machine
+**Running on your local machine**
 
 ```
 mvn clean exec:java
@@ -76,7 +89,7 @@ To read more about IAM Roles and Policies follow this link: [https://aws.amazon.
 
 ## Usage (Endpoints)
 
-### Sign Up
+**Sign Up**
 
 ```
 curl -i http://api.mosquito.report/signup/email \
@@ -90,7 +103,7 @@ curl -i http://api.mosquito.report/signup/email \
 ```
 
 
-### Authentication
+**Authentication**
 
 ```
 curl -i http://api.mosquito.report/auth/email \
@@ -102,7 +115,7 @@ curl -i http://api.mosquito.report/auth/email \
 ```
 
 
-### Add new focus
+**Add new focus**
 
 ```
 curl -i http://api.mosquito.report/focus \
@@ -112,7 +125,7 @@ curl -i http://api.mosquito.report/focus \
   }'
 ```
 
-### Geoseach focus
+**Geoseach focus**
 
 ```
 curl -i http://api.mosquito.report/focus/query \
@@ -124,7 +137,7 @@ curl -i http://api.mosquito.report/focus/query \
 ```
 
 
-### Add picture to a focus
+**Add picture to a focus**
 
 ```
 $focusGuid='00000000-0000-0000-0000-000000000000'
