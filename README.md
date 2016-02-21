@@ -121,6 +121,34 @@ curl -i http://api.mosquito.report/auth/email \
 ```
 
 
+**Get user info**
+
+```
+token='your token'
+
+curl -i http://api.mosquito.report/profile \
+  -H 'Authorization: Token $token'
+```
+
+
+**Update user info**
+
+```
+token='your token'
+
+curl -i http://api.mosquito.report/profile \
+  -H 'Authorization: Token $token' \
+  -H 'Content-Type: application/json' \
+  --data '{
+    "firstname": "Rogério",
+    "lastname": "Yokomizo",
+    "location": "Berlin, Germany",
+    "facebookurl": null,
+    "twitter": null
+  }'
+```
+
+
 **Add new focus**
 
 ```
