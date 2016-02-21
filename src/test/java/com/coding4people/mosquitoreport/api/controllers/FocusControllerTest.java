@@ -1,7 +1,6 @@
 package com.coding4people.mosquitoreport.api.controllers;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -13,6 +12,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import com.coding4people.mosquitoreport.api.WithServer;
+import com.coding4people.mosquitoreport.api.controllers.FocusController.FocusCenterInput;
 import com.coding4people.mosquitoreport.api.controllers.FocusController.FocusQueryInput;
 import com.coding4people.mosquitoreport.api.indexers.FocusIndexer;
 import com.coding4people.mosquitoreport.api.models.Focus;
@@ -36,7 +36,7 @@ public class FocusControllerTest extends WithServer {
         data.setLatlonnw("36.628611,-121.694152");
         data.setLatlonse("34.628611,-119.694152");
 
-        when(focusIndexer.search(any(), any())).thenReturn("\"cloud search return\"");
+        when(focusIndexer.search("36.628611,-121.694152", "34.628611,-119.694152")).thenReturn("\"cloud search return\"");
 
         Response response = target().path("/focus/query").request().post(Entity.json(data));
 
@@ -44,6 +44,22 @@ public class FocusControllerTest extends WithServer {
         assertEquals("application/json;charset=UTF-8", response.getHeaderString("Content-type"));
 
         verify(focusIndexer).search("36.628611,-121.694152", "34.628611,-119.694152");
+        assertEquals("\"cloud search return\"", response.readEntity(String.class));
+    }
+    
+    @Test
+    public void testQueryCenter() {
+        FocusCenterInput data = new FocusCenterInput();
+        data.setLatlon("36.628611,-121.694152");
+
+        when(focusIndexer.searchCenter("36.628611,-121.694152")).thenReturn("\"cloud search return\"");
+
+        Response response = target().path("/focus/query-center").request().post(Entity.json(data));
+
+        assertEquals(200, response.getStatus());
+        assertEquals("application/json;charset=UTF-8", response.getHeaderString("Content-type"));
+
+        verify(focusIndexer).searchCenter("36.628611,-121.694152");
         assertEquals("\"cloud search return\"", response.readEntity(String.class));
     }
     

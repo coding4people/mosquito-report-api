@@ -90,6 +90,16 @@ abstract public class Indexer<T extends WithGuid> {
                 .withSize(30L)
                 .withFilterQuery("latlon:['" + latlonnw + "','" + latlonse + "']"));
     }
+    
+    public Object searchCenter(String latlon) {
+        // TODO avoid query injection
+        return domain.search(new SearchRequest()
+                //TODO find another way to discard query
+                .withQuery("-fake")
+                .withSize(30L)
+                .withExpr("{\"distance\":\"haversin(" + latlon + ",latlon.latitude,latlon.longitude)\"}")
+                .withSort("distance asc"));
+    }
 
     @PostConstruct
     protected void postConstruct() {

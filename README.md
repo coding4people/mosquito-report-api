@@ -152,6 +152,17 @@ curl -i http://api.mosquito.report/focus/query \
 ```
 
 
+**Geoseach focus using a single point**
+
+```
+curl -i http://api.mosquito.report/focus/query-center \
+  -H 'Content-Type: application/json' \
+  --data '{
+    "latlon": "36.628611,-121.694152"
+  }'
+```
+
+
 **Add picture to a focus**
 
 ```

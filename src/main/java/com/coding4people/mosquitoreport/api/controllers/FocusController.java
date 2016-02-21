@@ -26,6 +26,14 @@ public class FocusController {
         return focusIndexer.search(input.getLatlonnw(), input.getLatlonse());
     }
     
+    @POST
+    @Path("/query-center")
+    @Consumes("application/json")
+    @Produces("application/json;charset=UTF-8")
+    public Object queryCenter(@Valid FocusCenterInput input) {
+        return focusIndexer.searchCenter(input.getLatlon());
+    }
+    
     @GET
     @Path("{guid}")
     @Produces("application/json;charset=UTF-8")
@@ -54,6 +62,19 @@ public class FocusController {
 
         public void setLatlonse(String latlonse) {
             this.latlonse = latlonse;
+        }
+    }
+    
+    public static class FocusCenterInput {
+        @NotNull
+        private String latlon;
+
+        public String getLatlon() {
+            return latlon;
+        }
+
+        public void setLatlon(String latlon) {
+            this.latlon = latlon;
         }
     }
 }
