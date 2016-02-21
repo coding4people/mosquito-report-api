@@ -18,6 +18,9 @@ import com.coding4people.mosquitoreport.api.controllers.AuthEmailController;
 import com.coding4people.mosquitoreport.api.controllers.FocusController;
 import com.coding4people.mosquitoreport.api.controllers.PictureController;
 import com.coding4people.mosquitoreport.api.controllers.SignUpController;
+import com.coding4people.mosquitoreport.api.exceptionmapper.BadRequestExceptionMapper;
+import com.coding4people.mosquitoreport.api.exceptionmapper.InternalServerErrorExceptionMapper;
+import com.coding4people.mosquitoreport.api.exceptionmapper.NotFoundExceptionMapper;
 import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
 import com.coding4people.mosquitoreport.api.indexers.IndexerBinder;
 import com.coding4people.mosquitoreport.api.repositories.RepositoryBinder;
@@ -32,6 +35,11 @@ public class Main {
                 .register(FocusController.class)
                 .register(PictureController.class)
                 .register(SignUpController.class)
+                
+                // Exception mappers
+                .register(BadRequestExceptionMapper.class)
+                .register(InternalServerErrorExceptionMapper.class)
+                .register(NotFoundExceptionMapper.class)
                 
                 // Binders
                 .register(new BucketBinder())
