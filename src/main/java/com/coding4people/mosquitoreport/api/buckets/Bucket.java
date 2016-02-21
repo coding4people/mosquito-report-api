@@ -52,22 +52,25 @@ abstract public class Bucket {
         // TODO create bucket on construct
     }
     
-    private FindContentLengthResult findContentLength(InputStream fileInputStream) {
+    protected ByteArrayOutputStream bufferInputStream(InputStream fileInputStream) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        int nRead;
+        byte[] data = new byte[16384];
+
+        while ((nRead = fileInputStream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+
+        buffer.flush();
+        
+        return buffer;
+    }
+    
+    protected FindContentLengthResult findContentLength(InputStream fileInputStream) {
         try {
-            Long contentLenght = 0L;
-            ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-            int nRead;
-            byte[] data = new byte[16384];
-
-            while ((nRead = fileInputStream.read(data, 0, data.length)) != -1) {
-                contentLenght += nRead;
-                buffer.write(data, 0, nRead);
-            }
-
-            buffer.flush();
-            
+            ByteArrayOutputStream buffer = bufferInputStream(fileInputStream);
             FindContentLengthResult result = new FindContentLengthResult();
-            result.setContentLength(contentLenght);
+            result.setContentLength(Long.valueOf(buffer.size()));
             result.setFileInputStream(new ByteArrayInputStream(buffer.toByteArray()));
             
             return result;
