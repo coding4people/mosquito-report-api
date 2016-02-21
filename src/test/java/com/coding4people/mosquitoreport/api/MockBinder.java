@@ -5,10 +5,14 @@ import java.lang.reflect.Field;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.mockito.Mock;
 
+import com.coding4people.mosquitoreport.api.models.User;
+
 public class MockBinder extends AbstractBinder {
     private final WithServer test;
     
     private final Field[] fields;
+    
+    private User currentUser = new User();
     
     public MockBinder(WithServer test) {
         this.test = test;
@@ -17,6 +21,8 @@ public class MockBinder extends AbstractBinder {
     
     @Override
     protected void configure() {
+        bindFactory(new InstanceFactory<User>(currentUser)).to(User.class);
+        
         for (Field field : fields) {
             if (field.isAnnotationPresent(Mock.class)) {
                 try {   
