@@ -46,7 +46,7 @@ sudo add-apt-repository ppa:webupd8team/java
 sudo apt-get update
 sudo apt-get install oracle-java8-installer
 
-version="0.0.7" \
+version="0.0.8" \
   && wget https://s3.amazonaws.com/com.coding4people.mosquito-report-api/release/com/coding4people/mosquito-report-api/$version/mosquito-report-api-$version-server.tar.gz \
   && tar -xzf mosquito-report-api-$version-server.tar.gz \
   && rm mosquito-report-api-$version-server.tar.gz
