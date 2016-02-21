@@ -131,6 +131,12 @@ curl -i http://api.mosquito.report/focus \
   }'
 ```
 
+**Read focus details**
+
+```
+curl -i http://api.mosquito.report/focus/00000000-0000-0000-0000-000000000000
+```
+
 **Geoseach focus**
 
 ```
