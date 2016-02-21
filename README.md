@@ -24,13 +24,14 @@ This project was built during the [Hack Summit Hackathon 2016](https://www.kodin
 **Rogério Yokomizo**
 
   * [https://github.com/yokomizor](https://github.com/yokomizor)
-  * [https://twitter.com/yokomizor](twitter.com/yokomizor)
+  * [https://twitter.com/yokomizor](https://twitter.com/yokomizor)
   * [http://ro.ger.io](http://ro.ger.io)
 
 
 **Vinícius Souza @infodark**
   
   * [https://github.com/infodark](https://github.com/infodark)
+  * [https://twitter.com/_infodark](https://twitter.com/_infodark)
   
   
 Special thanks to the guys of [Koding](https://www.koding.com/) for free hosting our app during the event.
