@@ -4,7 +4,7 @@
 
 **MosquitoReport** is an app to report areas where mosquitoes could spread. Areas of stagnant water, such as flower vases, uncovered barrels, buckets, and discarded tires, can be reported. The main goal is to support the combat against diseases like [Dengue](https://en.wikipedia.org/wiki/Dengue_fever), [Zika](https://en.wikipedia.org/wiki/Zika_fever) and [Chikungunya](https://en.wikipedia.org/wiki/Chikungunya).
 
-**MosquitoReportAPI** is the REST API of this Project. Check the frontend source code at [https://github.com/coding4people/mosquito-report-www](https://github.com/coding4people/mosquito-report-www). Also check our [visual project](https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.visual.png) and [wirefrimes](https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.wireframe.png).
+**MosquitoReportAPI** is the REST API of this project. Check the frontend source code at [https://github.com/coding4people/mosquito-report-www](https://github.com/coding4people/mosquito-report-www). Also check our [visual project](https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.visual.png) and [wirefrimes](https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.wireframe.png).
 
 <div>
   <img alt="Screenshot - Map" src="https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.screenshot.map.png">
