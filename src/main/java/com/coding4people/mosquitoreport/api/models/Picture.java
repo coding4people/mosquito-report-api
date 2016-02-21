@@ -1,5 +1,6 @@
 package com.coding4people.mosquitoreport.api.models;
 
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
@@ -11,6 +12,9 @@ public class Picture {
     
     @DynamoDBRangeKey
     private String createat;
+    
+    @DynamoDBAttribute
+    private String guid;
 
     public String getFocusguid() {
         return focusguid;
@@ -26,5 +30,17 @@ public class Picture {
 
     public void setCreateAt(String createat) {
         this.createat = createat;
+    }
+
+    public String getGuid() {
+        return guid;
+    }
+
+    public void setGuid(String guid) {
+        this.guid = guid;
+    }
+    
+    public String getPath() {
+        return focusguid + "/" + getGuid();
     }
 }
