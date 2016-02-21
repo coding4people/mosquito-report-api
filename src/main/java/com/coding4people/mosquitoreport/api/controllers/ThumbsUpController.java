@@ -9,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import com.coding4people.mosquitoreport.api.indexers.FocusIndexer;
 import com.coding4people.mosquitoreport.api.models.Focus;
 import com.coding4people.mosquitoreport.api.models.ThumbsUp;
 import com.coding4people.mosquitoreport.api.models.User;
@@ -23,6 +24,8 @@ public class ThumbsUpController {
     ThumbsUpRepository thumbsUpRepository;
     @Inject
     FocusRepository focusRepository;
+    @Inject
+    FocusIndexer focusIndexer;
     @Inject
     User currentUser;
 
@@ -42,6 +45,7 @@ public class ThumbsUpController {
 
         thumbsUpRepository.save(thumbsUp);
         focusRepository.save(focus);
+        focusIndexer.index(focus); //TODO make it asynchronous
 
         return new ObjectMapper().createObjectNode().put("thumbsup", focus.getThumbsup());
     }
