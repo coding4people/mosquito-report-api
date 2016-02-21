@@ -11,10 +11,10 @@ public class Focus {
     private String guid;
     
     @DynamoDBRangeKey
-    private String createAt;
+    private String createat;
     
     @DynamoDBAttribute
-    private String latLon;
+    private String latlon;
     
     public String getGuid() {
         return guid;
@@ -24,19 +24,19 @@ public class Focus {
         this.guid = guid;
     }
     
-    public String getLatLon() {
-        return latLon;
+    public String getLatlon() {
+        return latlon;
     }
 
-    public void setLatLon(String latLon) {
-        this.latLon = latLon;
+    public void setLatlon(String latLon) {
+        this.latlon = latLon;
     }
 
-    public String getCreateAt() {
-        return createAt;
+    public String getCreateat() {
+        return createat;
     }
 
-    public void setCreateAt(String createAt) {
-        this.createAt = createAt;
+    public void setCreateat(String createat) {
+        this.createat = createat;
     }
 }

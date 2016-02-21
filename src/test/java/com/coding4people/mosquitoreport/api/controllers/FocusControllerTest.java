@@ -30,7 +30,7 @@ public class FocusControllerTest extends WithServer {
     @Test
     public void testGetIt() {
         FocusPostInput data = new FocusPostInput();
-        data.setLatLon("35.628611,-120.694152");
+        data.setLatlon("35.628611,-120.694152");
         
         Response response = target().path("/focus").request()
                 .post(Entity.json(data));
@@ -43,7 +43,7 @@ public class FocusControllerTest extends WithServer {
         Focus focus = response.readEntity(Focus.class);
         
         assertNotNull(focus.getGuid());
-        assertEquals("35.628611,-120.694152", focus.getLatLon());
-        assertNotNull(focus.getCreateAt());
+        assertEquals("35.628611,-120.694152", focus.getLatlon());
+        assertNotNull(focus.getCreateat());
     }
 }

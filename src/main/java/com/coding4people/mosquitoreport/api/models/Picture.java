@@ -7,24 +7,24 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 @DynamoDBTable(tableName = "picture")
 public class Picture {
     @DynamoDBHashKey
-    private String focusGuid;
+    private String focusguid;
     
     @DynamoDBRangeKey
-    private String createAt;
+    private String createat;
 
-    public String getFocusGuid() {
-        return focusGuid;
+    public String getFocusguid() {
+        return focusguid;
     }
 
-    public void setFocusGuid(String focusGuid) {
-        this.focusGuid = focusGuid;
+    public void setFocusGuid(String focusguid) {
+        this.focusguid = focusguid;
     }
 
-    public String getCreateAt() {
-        return createAt;
+    public String getCreateat() {
+        return createat;
     }
 
-    public void setCreateAt(String createAt) {
-        this.createAt = createAt;
+    public void setCreateAt(String createat) {
+        this.createat = createat;
     }
 }

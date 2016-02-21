@@ -6,6 +6,7 @@ import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -27,8 +28,8 @@ public class FocusController {
     public Focus post(@Valid FocusPostInput input) {
         Focus focus = new Focus();
         focus.setGuid(java.util.UUID.randomUUID().toString());
-        focus.setLatLon(input.getLatLon());
-        focus.setCreateAt(Long.toString(new Date().getTime()));
+        focus.setLatlon(input.getLatlon());
+        focus.setCreateat(Long.toString(new Date().getTime()));
 
         focusRepository.save(focus);
         focusIndexer.index(focus);
@@ -36,29 +37,35 @@ public class FocusController {
         return focus;
     }
 
+    @GET
+    @Produces("application/json;charset=UTF-8")
+    public Object get(@Valid FocusGetInput input) {
+        return focusIndexer.search("");
+    }
+
     public static class FocusPostInput {
         @NotNull
-        private String latLon;
+        private String latlon;
 
-        public String getLatLon() {
-            return latLon;
+        public String getLatlon() {
+            return latlon;
         }
 
-        public void setLatLon(String latlon) {
-            this.latLon = latlon;
+        public void setLatlon(String latlon) {
+            this.latlon = latlon;
         }
     }
 
     public static class FocusGetInput {
         @NotNull
-        private String latLon;
+        private String latlon;
 
-        public String getLatLon() {
-            return latLon;
+        public String getLatlon() {
+            return latlon;
         }
 
-        public void setLatLon(String latlon) {
-            this.latLon = latlon;
+        public void setLatlon(String latlon) {
+            this.latlon = latlon;
         }
     }
 
