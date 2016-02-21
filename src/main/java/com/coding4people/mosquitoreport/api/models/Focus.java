@@ -16,12 +16,26 @@ public class Focus implements WithGuid {
     @DynamoDBAttribute
     private String latlon;
     
+    @DynamoDBAttribute
+    private String notes;
+    
+    @DynamoDBAttribute
+    private String thumbsup;
+    
     public String getGuid() {
         return guid;
     }
 
     public void setGuid(String guid) {
         this.guid = guid;
+    }
+    
+    public String getCreateat() {
+        return createat;
+    }
+    
+    public void setCreateat(String createat) {
+        this.createat = createat;
     }
     
     public String getLatlon() {
@@ -32,11 +46,19 @@ public class Focus implements WithGuid {
         this.latlon = latLon;
     }
 
-    public String getCreateat() {
-        return createat;
+    public String getNotes() {
+        return notes;
     }
 
-    public void setCreateat(String createat) {
-        this.createat = createat;
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getThumbsup() {
+        return thumbsup;
+    }
+
+    public void setThumbsup(String thumbsup) {
+        this.thumbsup = thumbsup;
     }
 }
