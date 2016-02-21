@@ -5,6 +5,7 @@ import org.mindrot.jbcrypt.BCrypt;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @DynamoDBTable(tableName = "email")
 public class Email {
@@ -15,6 +16,7 @@ public class Email {
     private String userguid;
     
     @DynamoDBAttribute
+    @JsonIgnore
     private String password;
 
     public String getEmail() {
