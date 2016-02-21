@@ -10,6 +10,9 @@ public class User {
     private String guid;
     
     @DynamoDBAttribute
+    private String email;
+    
+    @DynamoDBAttribute
     private String firstname;
     
     @DynamoDBAttribute
@@ -33,6 +36,14 @@ public class User {
 
     public void setGuid(String guid) {
         this.guid = guid;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getFirstname() {
