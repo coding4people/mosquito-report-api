@@ -1,4 +1,4 @@
-package com.coding4people.mosquitoreport.api.exceptionmapper;
+package com.coding4people.mosquitoreport.api.exceptionmappers;
 
 import javax.ws.rs.NotFoundException;
 import javax.ws.rs.core.Response;
