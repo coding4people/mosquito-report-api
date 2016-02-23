@@ -8,10 +8,11 @@ import java.util.logging.Logger;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.CommonProperties;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.jackson.JacksonFeature;
+import org.glassfish.jersey.jackson.internal.FilteringJacksonJaxbJsonProvider;
+import org.glassfish.jersey.jackson.internal.JacksonFilteringFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.message.filtering.EntityFilteringFeature;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.ServerProperties;
 
 import com.coding4people.mosquitoreport.api.buckets.BucketBinder;
 import com.coding4people.mosquitoreport.api.controllers.AuthEmailController;
@@ -24,7 +25,10 @@ import com.coding4people.mosquitoreport.api.controllers.ThumbsUpController;
 import com.coding4people.mosquitoreport.api.exceptionmapper.BadRequestExceptionMapper;
 import com.coding4people.mosquitoreport.api.exceptionmapper.ForbiddenExceptionMapper;
 import com.coding4people.mosquitoreport.api.exceptionmapper.InternalServerErrorExceptionMapper;
+import com.coding4people.mosquitoreport.api.exceptionmapper.JsonMappingExceptionMapper;
+import com.coding4people.mosquitoreport.api.exceptionmapper.JsonParseExceptionMapper;
 import com.coding4people.mosquitoreport.api.exceptionmapper.NotFoundExceptionMapper;
+import com.coding4people.mosquitoreport.api.exceptionmapper.ValidationExceptionMapper;
 import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
 import com.coding4people.mosquitoreport.api.filters.CORSFilter;
 import com.coding4people.mosquitoreport.api.indexers.IndexerBinder;
@@ -48,7 +52,10 @@ public class Main {
                 .register(BadRequestExceptionMapper.class)
                 .register(ForbiddenExceptionMapper.class)
                 .register(InternalServerErrorExceptionMapper.class)
+                .register(JsonMappingExceptionMapper.class)
+                .register(JsonParseExceptionMapper.class)
                 .register(NotFoundExceptionMapper.class)
+                .register(ValidationExceptionMapper.class)
                 
                 // Filters
                 .register(CORSFilter.class)
@@ -61,9 +68,11 @@ public class Main {
     }
     
     public static ResourceConfig commonConfig() {
-        return new ResourceConfig().property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true)
+        return new ResourceConfig()
                 .property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true)
-                .register(JacksonFeature.class)
+                .register(EntityFilteringFeature.class)
+                .register(JacksonFilteringFeature.class)
+                .register(FilteringJacksonJaxbJsonProvider.class)
                 .register(MultiPartFeature.class);
     }
 
