@@ -11,54 +11,8 @@
   <img alt="Screenshot - Details" src="https://s3.amazonaws.com/coding4people.com/mosquito.report/mosquito.report.screenshot.details.png">
 </div>
 
-## Hack Summit Hackathon
-
-This project was built during the [Hack Summit Hackathon 2016](https://www.koding.com/Hackathon). More about our team:
-
-**Leonardo Navarro**
-
-  * [https://www.behance.net/leonavarro](https://www.behance.net/leonavarro)
-  * [https://github.com/leonavarro](https://github.com/leonavarro)
-  
- 
-**Rogério Yokomizo**
-
-  * [https://github.com/yokomizor](https://github.com/yokomizor)
-  * [https://twitter.com/yokomizor](https://twitter.com/yokomizor)
-  * [http://ro.ger.io](http://ro.ger.io)
-
-
-**Vinícius Souza @infodark**
-  
-  * [https://github.com/infodark](https://github.com/infodark)
-  * [https://twitter.com/_infodark](https://twitter.com/_infodark)
-  
-  
-Special thanks to the guys of [Koding](https://www.koding.com/) for free hosting our app during the event.
-
 
 ## Instalation
-
-**Koding VM**
-
-```
-sudo add-apt-repository ppa:webupd8team/java
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
-
-version="0.0.9" \
-  && wget https://s3.amazonaws.com/com.coding4people.mosquito-report-api/release/com/coding4people/mosquito-report-api/$version/mosquito-report-api-$version-server.tar.gz \
-  && tar -xzf mosquito-report-api-$version-server.tar.gz \
-  && rm mosquito-report-api-$version-server.tar.gz
-  
-AWS_ACCESS_KEY_ID=... \
-AWS_SECRET_ACCESS_KEY=... \
-MOSQUITO_REPORT_DYNAMODB_TABLE_PREFIX=koding \
-MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX=koding \
-MOSQUITO_REPORT_BUCKET_NAME_PICTURE=koding.mosquitoreport.pictures \
-java -cp lib com.coding4people.mosquitoreport.api.Main
-```
-
 
 **Docker**
 
@@ -66,9 +20,9 @@ java -cp lib com.coding4people.mosquitoreport.api.Main
 docker run --rm -it --name coding4people/mosquito-report-api -p 80:9000 \
   -e "AWS_ACCESS_KEY_ID=..." \
   -e "AWS_SECRET_ACCESS_KEY=..." \
-  -e "MOSQUITO_REPORT_DYNAMODB_TABLE_PREFIX=koding" \
-  -e "MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX=koding" \
-  -e "MOSQUITO_REPORT_BUCKET_NAME_PICTURE=koding.mosquitoreport.pictures" \
+  -e "MOSQUITO_REPORT_DYNAMODB_TABLE_PREFIX=localhost" \
+  -e "MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX=localhost" \
+  -e "MOSQUITO_REPORT_BUCKET_NAME_PICTURE=localhost.mosquitoreport.pictures" \
   mosquito-report-api
 ```
 
@@ -76,6 +30,11 @@ docker run --rm -it --name coding4people/mosquito-report-api -p 80:9000 \
 **Running on your local machine**
 
 ```
+AWS_ACCESS_KEY_ID=..." \
+AWS_SECRET_ACCESS_KEY=..." \
+MOSQUITO_REPORT_DYNAMODB_TABLE_PREFIX=localhost" \
+MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX=localhost" \
+MOSQUITO_REPORT_BUCKET_NAME_PICTURE=localhost.mosquitoreport.pictures" \
 mvn clean exec:java
 ```
 
@@ -203,4 +162,24 @@ curl -i http://api.mosquito.report//picture/focus/$focusGuid \
   -F file=$fileName
 ```
 
+
+## Authors
+
+**Leonardo Navarro**
+
+  * [https://www.behance.net/leonavarro](https://www.behance.net/leonavarro)
+  * [https://github.com/leonavarro](https://github.com/leonavarro)
+  
+ 
+**Rogério Yokomizo**
+
+  * [https://github.com/yokomizor](https://github.com/yokomizor)
+  * [https://twitter.com/yokomizor](https://twitter.com/yokomizor)
+  * [http://ro.ger.io](http://ro.ger.io)
+
+
+**Vinícius Souza**
+  
+  * [https://github.com/infodark](https://github.com/infodark)
+  * [https://twitter.com/_infodark](https://twitter.com/_infodark)
 
