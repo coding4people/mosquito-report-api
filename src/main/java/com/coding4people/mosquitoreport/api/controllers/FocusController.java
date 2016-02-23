@@ -11,6 +11,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 
 import com.coding4people.mosquitoreport.api.indexers.FocusIndexer;
+import com.coding4people.mosquitoreport.api.models.Focus;
 import com.coding4people.mosquitoreport.api.repositories.FocusRepository;
 
 @Path("/focus")
@@ -37,7 +38,7 @@ public class FocusController {
     @GET
     @Path("{guid}")
     @Produces("application/json;charset=UTF-8")
-    public Object details(@PathParam("guid") String guid) {
+    public Focus details(@PathParam("guid") String guid) {
         return focusRepository.loadOrNotFound(guid);
     }
 
