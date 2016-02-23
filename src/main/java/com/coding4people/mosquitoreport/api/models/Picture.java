@@ -11,7 +11,7 @@ public class Picture {
     private String focusguid;
     
     @DynamoDBRangeKey
-    private String createat;
+    private String createdat;
     
     @DynamoDBAttribute
     private String guid;
@@ -27,12 +27,12 @@ public class Picture {
         this.focusguid = focusguid;
     }
 
-    public String getCreateat() {
-        return createat;
+    public String getCreatedat() {
+        return createdat;
     }
 
-    public void setCreateAt(String createat) {
-        this.createat = createat;
+    public void setCreatedat(String createdat) {
+        this.createdat = createdat;
     }
 
     public String getGuid() {
@@ -45,6 +45,9 @@ public class Picture {
     
     public String getPath() {
         return "pictures/" + focusguid + "/" + getGuid() + "/" + (filename == null ? "picture" : filename);
+    }
+    
+    public void setPath(String string) {
     }
 
     public String getFilename() {

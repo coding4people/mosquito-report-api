@@ -38,7 +38,7 @@ public class PictureController {
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
     @Produces("application/json;charset=UTF-8")
     @Path("/focus/{focusguid}")
-    public Object post(@PathParam("focusguid") String focusguid, @FormDataParam("file") InputStream fileInputStream,
+    public Picture post(@PathParam("focusguid") String focusguid, @FormDataParam("file") InputStream fileInputStream,
             @FormDataParam("file") FormDataContentDisposition fileDisposition) {
         Focus focus = focusRepository.loadOrNotFound(focusguid);
         
@@ -50,7 +50,7 @@ public class PictureController {
         picture.setGuid(UUID.randomUUID().toString());
         picture.setFilename(fileDisposition.getFileName());
         picture.setFocusGuid(focusguid);
-        picture.setCreateAt(Long.toString(new Date().getTime()));
+        picture.setCreatedat(Long.toString(new Date().getTime()));
         
         pictureBucket.put(picture.getPath(), fileInputStream, fileDisposition.getSize());
         pictureRepository.save(picture);
