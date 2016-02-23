@@ -42,7 +42,7 @@ public class PictureController {
             @FormDataParam("file") FormDataContentDisposition fileDisposition) {
         Focus focus = focusRepository.loadOrNotFound(focusguid);
         
-        if (user.getGuid().equals(focus.getAuthoruserguid())) {
+        if (!user.getGuid().equals(focus.getAuthoruserguid())) {
             throw new BadRequestException("User does not own this item");
         }
         

@@ -12,8 +12,6 @@ public class MockBinder extends AbstractBinder {
     
     private final Field[] fields;
     
-    private User currentUser = new User();
-    
     public MockBinder(WithServer test) {
         this.test = test;
         this.fields = test.getClass().getDeclaredFields();
@@ -21,7 +19,7 @@ public class MockBinder extends AbstractBinder {
     
     @Override
     protected void configure() {
-        bindFactory(new InstanceFactory<User>(currentUser)).to(User.class);
+        bindFactory(new InstanceFactory<User>(test.getCurrentUser())).to(User.class);
         
         for (Field field : fields) {
             if (field.isAnnotationPresent(Mock.class)) {
