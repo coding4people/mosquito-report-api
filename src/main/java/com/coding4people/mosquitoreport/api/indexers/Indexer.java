@@ -19,6 +19,7 @@ import javax.ws.rs.InternalServerErrorException;
 
 import com.amazonaws.services.cloudsearchdomain.AmazonCloudSearchDomain;
 import com.amazonaws.services.cloudsearchdomain.AmazonCloudSearchDomainClient;
+import com.amazonaws.services.cloudsearchdomain.model.QueryParser;
 import com.amazonaws.services.cloudsearchdomain.model.SearchRequest;
 import com.amazonaws.services.cloudsearchdomain.model.UploadDocumentsRequest;
 import com.amazonaws.services.cloudsearchv2.AmazonCloudSearch;
@@ -82,23 +83,63 @@ abstract public class Indexer<T extends WithGuid> {
         }
     }
 
+    // TODO avoid query injection
     public Object search(String latlonnw, String latlonse) {
-        // TODO avoid query injection
-        return domain.search(new SearchRequest()
-                //TODO find another way to discard query
-                .withQuery("-fake")
-                .withSize(30L)
-                .withFilterQuery("latlon:['" + latlonnw + "','" + latlonse + "']"));
+        String[] latlonnwa = latlonnw.split(",");
+        String[] latlonsea = latlonse.split(",");
+
+        Double latnw = Double.parseDouble(latlonnwa[0]);
+        Double lonnw = Double.parseDouble(latlonnwa[1]);
+
+        Double latse = Double.parseDouble(latlonsea[0]);
+        Double lonse = Double.parseDouble(latlonsea[1]);
+
+        String latlon = (latnw - ((latnw - latse) / 2)) + "," + (lonnw - ((lonnw - lonse) / 2));
+
+        System.out.println("latlon:['" + latlonnw + "','" + latlonse + "']");
+        System.out.println(latlon);
+        
+        SearchRequest request = new SearchRequest().withSize(30L)
+                .withQuery("latlon:['" + latlonnw + "','" + latlonse + "']")
+                .withExpr("{\"distance\":\"haversin(" + latlon + ",latlon.latitude,latlon.longitude)\"}")
+                .withSort("distance asc");
+
+        request.setQueryParser(QueryParser.Structured);
+
+        return domain.search(request);
+    }
+
+    private Double limitLat(Double d) {
+        Double max = 89.899D;
+        //Does not include 89.899
+        if (d >= max) return d - (max * 2);
+        if (d <= -max) return d + (max * 2);
+        return d;
     }
     
+    private Double limitLon(Double d) {
+        Double max = 180D;
+        //Includes 180
+        if (d > max) return d - (max * 2);
+        if (d < -max) return d + (max * 2);
+        return d;
+    }
+    
+    // TODO avoid query injection
     public Object searchCenter(String latlon) {
-        // TODO avoid query injection
-        return domain.search(new SearchRequest()
-                //TODO find another way to discard query
-                .withQuery("-fake")
-                .withSize(30L)
-                .withExpr("{\"distance\":\"haversin(" + latlon + ",latlon.latitude,latlon.longitude)\"}")
-                .withSort("distance asc"));
+        String[] latlonnwa = latlon.split(",");
+
+        Double range = 0.1D;
+        
+        Double lat = Double.parseDouble(latlonnwa[0]);
+        Double lon = Double.parseDouble(latlonnwa[1]);
+
+        Double latnw = limitLat(lat + range);
+        Double lonnw = limitLon(lon - range);
+        Double latse = limitLat(lat - range);
+        Double lonse = limitLon(lon + range);
+        
+        return search(latnw + "," + lonnw, latse + "," + lonse);
     }
 
     @PostConstruct
