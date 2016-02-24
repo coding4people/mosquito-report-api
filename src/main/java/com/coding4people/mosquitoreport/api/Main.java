@@ -5,13 +5,13 @@ import java.net.URI;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.ws.rs.ext.MessageBodyReader;
+import javax.ws.rs.ext.MessageBodyWriter;
+
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.CommonProperties;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
-import org.glassfish.jersey.jackson.internal.FilteringJacksonJaxbJsonProvider;
-import org.glassfish.jersey.jackson.internal.JacksonFilteringFeature;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
-import org.glassfish.jersey.message.filtering.EntityFilteringFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import com.coding4people.mosquitoreport.api.buckets.BucketBinder;
@@ -33,6 +33,7 @@ import com.coding4people.mosquitoreport.api.factories.FactoryBinder;
 import com.coding4people.mosquitoreport.api.filters.CORSFilter;
 import com.coding4people.mosquitoreport.api.indexers.IndexerBinder;
 import com.coding4people.mosquitoreport.api.repositories.RepositoryBinder;
+import com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 
 public class Main {
     public static final String BASE_URI = "http://0.0.0.0:9000/";
@@ -70,9 +71,7 @@ public class Main {
     public static ResourceConfig commonConfig() {
         return new ResourceConfig()
                 .property(CommonProperties.FEATURE_AUTO_DISCOVERY_DISABLE, true)
-                .register(EntityFilteringFeature.class)
-                .register(JacksonFilteringFeature.class)
-                .register(FilteringJacksonJaxbJsonProvider.class)
+                .register(JacksonJaxbJsonProvider.class, MessageBodyReader.class, MessageBodyWriter.class)
                 .register(MultiPartFeature.class);
     }
 
