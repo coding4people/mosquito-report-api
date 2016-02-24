@@ -11,7 +11,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class JsonMappingExceptionMapper implements ExceptionMapper<JsonMappingException> {
 
     @Override
-    public Response toResponse(JsonMappingException arg0) {
+    public Response toResponse(JsonMappingException exception) {
+        if ("true".equals(System.getenv("MOSQUITO_REPORT_DEBUG"))) {
+            exception.printStackTrace();
+        } //TODO else log into newrelic
+        
         ObjectNode error = new ObjectMapper().createObjectNode();
         error.put("status", "error");
         error.put("message", "Error mapping json");
