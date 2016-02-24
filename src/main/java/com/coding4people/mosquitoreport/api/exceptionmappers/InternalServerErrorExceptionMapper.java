@@ -10,6 +10,10 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class InternalServerErrorExceptionMapper implements ExceptionMapper<Throwable> {
     @Override
     public Response toResponse(Throwable exception) {
+        if ("true".equals(System.getenv("MOSQUITO_REPORT_DEBUG"))) {
+            exception.printStackTrace();
+        } //TODO else log into newrelic
+        
         ObjectNode error = new ObjectMapper().createObjectNode();
         error.put("status", "error");
         error.put("message", "Internal server error");
