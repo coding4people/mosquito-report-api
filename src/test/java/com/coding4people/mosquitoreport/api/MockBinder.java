@@ -8,11 +8,11 @@ import org.mockito.Mock;
 import com.coding4people.mosquitoreport.api.models.User;
 
 public class MockBinder extends AbstractBinder {
-    private final WithServer test;
+    private final BaseTest test;
     
     private final Field[] fields;
     
-    public MockBinder(WithServer test) {
+    public MockBinder(BaseTest test) {
         this.test = test;
         this.fields = test.getClass().getDeclaredFields();
     }
