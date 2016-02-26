@@ -96,9 +96,6 @@ abstract public class Indexer<T extends WithGuid> {
 
         String latlon = (latnw - ((latnw - latse) / 2)) + "," + (lonnw - ((lonnw - lonse) / 2));
 
-        System.out.println("latlon:['" + latlonnw + "','" + latlonse + "']");
-        System.out.println(latlon);
-        
         SearchRequest request = new SearchRequest().withSize(30L)
                 .withQuery("latlon:['" + latlonnw + "','" + latlonse + "']")
                 .withExpr("{\"distance\":\"haversin(" + latlon + ",latlon.latitude,latlon.longitude)\"}")
