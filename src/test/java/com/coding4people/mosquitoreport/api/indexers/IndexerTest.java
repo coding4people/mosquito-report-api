@@ -32,7 +32,7 @@ public class IndexerTest extends WithService {
     AmazonCloudSearchDomain domain;
 
     @Test
-    public void testThrowsExecptionWhenSearchDomainDoesNotExists() {
+    public void testThrowsExecptionWhenSearchDomainDoesNotExist() {
         when(env.get("MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
         when(amazonCloudSearch.describeDomains(any()))
                 .thenReturn(new DescribeDomainsResult().withDomainStatusList(Lists.newArrayList()));
@@ -50,7 +50,7 @@ public class IndexerTest extends WithService {
     }
 
     @Test
-    public void testThrowsExecptionWhenSearchServiceDoesNotExists() {
+    public void testThrowsExecptionWhenSearchServiceDoesNotExist() {
         when(env.get("MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
         when(amazonCloudSearch.describeDomains(any())).thenReturn(new DescribeDomainsResult()
                 .withDomainStatusList(Lists.newArrayList(new DomainStatus().withSearchService(new ServiceEndpoint()))));
