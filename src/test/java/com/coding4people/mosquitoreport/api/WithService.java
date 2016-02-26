@@ -6,8 +6,6 @@ import org.junit.Before;
 import org.mockito.MockitoAnnotations;
 
 abstract public class WithService implements BaseTest {
-   
-    
     @Before
     public void initialize() {
         MockitoAnnotations.initMocks(this);
