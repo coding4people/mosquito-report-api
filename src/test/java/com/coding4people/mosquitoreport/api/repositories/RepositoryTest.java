@@ -14,6 +14,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.dynamodbv2.document.Table;
 import com.amazonaws.services.dynamodbv2.model.CreateTableRequest;
+import com.amazonaws.services.dynamodbv2.model.ResourceInUseException;
 import com.coding4people.mosquitoreport.api.WithService;
 
 public class RepositoryTest extends WithService {
@@ -99,6 +100,26 @@ public class RepositoryTest extends WithService {
         assertEquals(model, repository.loadOrNotFound("hash"));
         
         verify(mapper).load(Model.class, "hash");
+    }
+    
+    @Test
+    public void testResourceInUseException() {
+        CreateTableRequest request = new CreateTableRequest();
+
+        when(mapper.generateCreateTableRequest(Model.class)).thenReturn(request);
+        when(dynamoDB.createTable(request)).thenThrow(new ResourceInUseException(""));
+
+        getService(ModelRepository.class);
+    }
+    
+    @Test(expected = RuntimeException.class)
+    public void testInterruptedException() {
+        CreateTableRequest request = new CreateTableRequest();
+
+        when(mapper.generateCreateTableRequest(Model.class)).thenReturn(request);
+        when(dynamoDB.createTable(request)).thenThrow(new InterruptedException(""));
+
+        getService(ModelRepository.class);
     }
 
     public static class Model {
