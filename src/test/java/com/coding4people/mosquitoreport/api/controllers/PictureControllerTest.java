@@ -52,7 +52,7 @@ public class PictureControllerTest extends WithServer {
     }
     
     @Override
-    protected User getCurrentUser() {
+    public User getCurrentUser() {
         return currentUser;
     }
 
