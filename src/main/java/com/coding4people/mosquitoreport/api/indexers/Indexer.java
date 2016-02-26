@@ -153,8 +153,8 @@ abstract public class Indexer<T extends WithGuid> {
 
         ServiceEndpoint searchService = list.get(0).getSearchService();
 
-        if (searchService.getEndpoint() == null) {
-            throw new InternalServerErrorException("Could not find CloudSearch domain: " + getDomainName());
+        if (searchService == null || searchService.getEndpoint() == null) {
+            throw new InternalServerErrorException("Could not find SearchService for: " + getDomainName());
         }
 
         domain = new AmazonCloudSearchDomainClient();

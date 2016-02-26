@@ -9,8 +9,11 @@ import org.glassfish.hk2.api.MultiException;
 import org.junit.Test;
 import org.mockito.Mock;
 
+import com.amazonaws.services.cloudsearchdomain.AmazonCloudSearchDomain;
 import com.amazonaws.services.cloudsearchv2.AmazonCloudSearch;
 import com.amazonaws.services.cloudsearchv2.model.DescribeDomainsResult;
+import com.amazonaws.services.cloudsearchv2.model.DomainStatus;
+import com.amazonaws.services.cloudsearchv2.model.ServiceEndpoint;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.coding4people.mosquitoreport.api.Env;
 import com.coding4people.mosquitoreport.api.WithService;
@@ -25,6 +28,9 @@ public class IndexerTest extends WithService {
     @Mock
     Env env;
 
+    @Mock
+    AmazonCloudSearchDomain domain;
+
     @Test
     public void testThrowsExecptionWhenSearchDomainDoesNotExists() {
         when(env.get("MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
@@ -36,10 +42,28 @@ public class IndexerTest extends WithService {
             getService(ModelIndexer.class);
         } catch (MultiException e) {
             assertEquals("Could not find CloudSearch domain: test-model", e.getCause().getMessage());
-            
+
             return;
         }
-        
+
+        fail("Was expection an exception");
+    }
+
+    @Test
+    public void testThrowsExecptionWhenSearchServiceDoesNotExists() {
+        when(env.get("MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
+        when(amazonCloudSearch.describeDomains(any())).thenReturn(new DescribeDomainsResult()
+                .withDomainStatusList(Lists.newArrayList(new DomainStatus().withSearchService(new ServiceEndpoint()))));
+
+        try {
+            // TODO suppress exception stacktrace
+            getService(ModelIndexer.class);
+        } catch (MultiException e) {
+            assertEquals("Could not find SearchService for: test-model", e.getCause().getMessage());
+
+            return;
+        }
+
         fail("Was expection an exception");
     }
 
