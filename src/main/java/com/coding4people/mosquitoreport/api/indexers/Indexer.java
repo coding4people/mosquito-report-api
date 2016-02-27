@@ -156,9 +156,13 @@ abstract public class Indexer<T extends WithGuid> {
         if (searchService == null || searchService.getEndpoint() == null) {
             throw new InternalServerErrorException("Could not find SearchService for: " + getDomainName());
         }
-
-        domain = new AmazonCloudSearchDomainClient();
+        
+        domain = createDomain();
         domain.setEndpoint(searchService.getEndpoint());
+    }
+    
+    protected AmazonCloudSearchDomain createDomain() {
+        return new AmazonCloudSearchDomainClient();
     }
 
     protected String getDomainName() {

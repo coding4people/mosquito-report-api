@@ -5,11 +5,17 @@ import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
+import javax.inject.Inject;
+
 import org.glassfish.hk2.api.MultiException;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 
 import com.amazonaws.services.cloudsearchdomain.AmazonCloudSearchDomain;
+import com.amazonaws.services.cloudsearchdomain.AmazonCloudSearchDomainClient;
+import com.amazonaws.services.cloudsearchdomain.model.SearchRequest;
+import com.amazonaws.services.cloudsearchdomain.model.SearchResult;
 import com.amazonaws.services.cloudsearchv2.AmazonCloudSearch;
 import com.amazonaws.services.cloudsearchv2.model.DescribeDomainsResult;
 import com.amazonaws.services.cloudsearchv2.model.DomainStatus;
@@ -29,7 +35,7 @@ public class IndexerTest extends WithService {
     Env env;
 
     @Mock
-    AmazonCloudSearchDomain domain;
+    AmazonCloudSearchDomainClient domain;
 
     @Test
     public void testThrowsExecptionWhenSearchDomainDoesNotExist() {
@@ -66,6 +72,29 @@ public class IndexerTest extends WithService {
 
         fail("Was expection an exception");
     }
+    
+    @Test
+    public void testSearchCenter() {
+        when(env.get("MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
+        when(amazonCloudSearch.describeDomains(any())).thenReturn(new DescribeDomainsResult()
+                .withDomainStatusList(Lists.newArrayList(new DomainStatus().withSearchService(new ServiceEndpoint().withEndpoint("http://localhost")))));
+
+        SearchResult expected = new SearchResult();
+        
+        ArgumentCaptor<SearchRequest> requestCaptor = ArgumentCaptor.forClass(SearchRequest.class);
+        
+        when(domain.search(requestCaptor.capture())).thenReturn(expected);
+        
+        Object result = getService(ModelIndexer.class).searchCenter("0,0");
+        
+        SearchRequest request = requestCaptor.getValue();
+        
+        assertEquals(expected, result);
+        assertEquals("latlon:['0.1,-0.1','-0.1,0.1']", request.getQuery());
+        assertEquals("{\"distance\":\"haversin(0.0,0.0,latlon.latitude,latlon.longitude)\"}", request.getExpr());
+        assertEquals("distance asc", request.getSort());
+        assertEquals(Long.valueOf(30L), request.getSize());
+    }
 
     @DynamoDBTable(tableName = "model")
     public static class Model implements WithGuid {
@@ -82,9 +111,17 @@ public class IndexerTest extends WithService {
     }
 
     public static class ModelIndexer extends Indexer<Model> {
+        @Inject
+        AmazonCloudSearchDomainClient domainMock;
+        
         @Override
         protected Class<Model> getType() {
             return Model.class;
+        }
+        
+        @Override
+        protected AmazonCloudSearchDomain createDomain() {
+            return domainMock;
         }
     }
 }
