@@ -108,6 +108,27 @@ curl -i http://api.mosquito.report/profile \
   }'
 ```
 
+**Request password reset**
+
+```
+curl -i http://api.mosquito.report/reset-password/request \
+  -H 'Content-Type: application/json' \
+  --data '{
+    "email": "test@test.org"
+  }'
+```
+
+**Reset password**
+
+```
+curl -i http://api.mosquito.report/reset-password \
+  -H 'Content-Type: application/json' \
+  --data '{
+    "email": "test@test.org",
+    "token": "...",
+    "newPassword": "123456"
+  }'
+```
 
 **Add new focus**
 

@@ -14,6 +14,9 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import com.coding4people.mosquitoreport.api.models.Email;
 import com.coding4people.mosquitoreport.api.models.PasswordResetToken;
 import com.coding4people.mosquitoreport.api.repositories.EmailRepository;
@@ -84,7 +87,7 @@ public class ResetPasswordController {
         }
         
         //TODO delete token
-        email.setPassword(Email.encryptPassword(input.getNewRawPassword()));
+        email.setPassword(Email.encryptPassword(input.getNewPassword()));
         emailRepository.save(email);
         
         return new ObjectMapper().createObjectNode().put("status", "reset");
@@ -110,8 +113,10 @@ public class ResetPasswordController {
         @NotNull
         private String token;
         
+        @NotEmpty
         @NotNull
-        private String newRawPassword;
+        @Length(min = 6)
+        private String newPassword;
 
         public String getEmail() {
             return email;
@@ -129,12 +134,12 @@ public class ResetPasswordController {
             this.token = token;
         }
 
-        public String getNewRawPassword() {
-            return newRawPassword;
+        public String getNewPassword() {
+            return newPassword;
         }
 
-        public void setNewRawPassword(String newRawPassword) {
-            this.newRawPassword = newRawPassword;
+        public void setNewPassword(String newPassword) {
+            this.newPassword = newPassword;
         }
     }
 }

@@ -69,7 +69,7 @@ public class ResetPasswordControllerTest extends WithServer {
         ResetPasswordInput data = new ResetPasswordInput();
         data.setEmail("test@test.org");
         data.setToken(publicToken);
-        data.setNewRawPassword("123456");
+        data.setNewPassword("123456");
         
         PasswordResetToken token = new PasswordResetToken();
         token.setToken("$2a$12$E1mvo/1OK5kUdGGkbpo2Ceswe24tHU22dj71Zb/YlD90nekZA9WrO");
@@ -90,7 +90,7 @@ public class ResetPasswordControllerTest extends WithServer {
         ResetPasswordInput data = new ResetPasswordInput();
         data.setEmail("test@test.org");
         data.setToken(publicToken);
-        data.setNewRawPassword("123456");
+        data.setNewPassword("123456");
         
         PasswordResetToken token = new PasswordResetToken();
         token.setToken("$2a$12$E1mvo/1OK5kUdGGkbpo2Ceswe24tHU22dj71Zb/YlD90nekZA9WrO");
@@ -112,7 +112,7 @@ public class ResetPasswordControllerTest extends WithServer {
         ResetPasswordInput data = new ResetPasswordInput();
         data.setEmail("test@test.org");
         data.setToken(publicToken);
-        data.setNewRawPassword("123456");
+        data.setNewPassword("123456");
         
         PasswordResetToken token = new PasswordResetToken();
         token.setToken("$2a$12$E1mvo/1OK5kUdGGkbpo2Ceswe24tHU22dj71Zb/YlD90nekZA9WrO");
@@ -134,7 +134,7 @@ public class ResetPasswordControllerTest extends WithServer {
         ResetPasswordInput data = new ResetPasswordInput();
         data.setEmail("test@test.org");
         data.setToken(publicToken);
-        data.setNewRawPassword("123456");
+        data.setNewPassword("123456");
         
         PasswordResetToken token = new PasswordResetToken();
         token.setToken("$2a$12$E1mvo/1OK5kUdGGkbpo2Ceswe24tHU22dj71Zb/YlD90nekZA9WrO");
@@ -162,7 +162,7 @@ public class ResetPasswordControllerTest extends WithServer {
         ResetPasswordInput data = new ResetPasswordInput();
         data.setEmail("test@test.org");
         data.setToken(publicToken);
-        data.setNewRawPassword("123456");
+        data.setNewPassword("123456");
         
         PasswordResetToken token = new PasswordResetToken();
         token.setToken("$2a$12$E1mvo/1OK5kUdGGkbpo2Ceswe24tHU22dj71Zb/YlD90nekZA9WrO");
