@@ -36,8 +36,11 @@ public class ResetPasswordController {
     public ObjectNode request(@Valid RequestResetPasswordInput input) {
         String code = UUID.randomUUID().toString();
         
+        Email email = emailRepository.load(input.getEmail());
+        
         PasswordResetToken token = new PasswordResetToken();
-        token.setEmail(input.getEmail());
+        token.setEmail(email.getEmail());
+        token.setUserguid(email.getUserguid());
         token.setToken(PasswordResetToken.encryptToken(code));
         token.setExpires(Long.toString(LocalDateTime.now().plusDays(5).toEpochSecond(ZoneOffset.UTC)));
         
@@ -74,9 +77,13 @@ public class ResetPasswordController {
             throw new BadRequestException("This token is expired");
         }
         
-        //TODO delete token
-        
         Email email = emailRepository.load(token.getEmail());
+
+        if (!email.getUserguid().equals(token.getUserguid())) {
+            throw new BadRequestException("Invalid token");
+        }
+        
+        //TODO delete token
         email.setPassword(Email.encryptPassword(input.getNewRawPassword()));
         emailRepository.save(email);
         

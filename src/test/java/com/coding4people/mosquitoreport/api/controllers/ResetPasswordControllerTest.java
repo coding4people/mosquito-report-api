@@ -41,6 +41,12 @@ public class ResetPasswordControllerTest extends WithServer {
     public void testRequest() {
         RequestResetPasswordInput data = new RequestResetPasswordInput();
         data.setEmail("test@test.org");
+        
+        Email email = new Email();
+        email.setEmail("test@test.org");
+        email.setUserguid("00000000-0000-0000-0000-000000000000");
+        
+        when(emailRepository.load("test@test.org")).thenReturn(email);
 
         Response response = target().path("/reset-password/request").request().post(Entity.json(data));
         
@@ -121,6 +127,34 @@ public class ResetPasswordControllerTest extends WithServer {
     }
     
     @Test
+    public void testInvalidGuid() {
+        String expires = String.valueOf(new Date().getTime());
+        String publicToken = Base64.getEncoder().encodeToString((expires + ".cea13f4d-0efc-4c66-9513-0cc36fcb08c9").getBytes());
+        
+        ResetPasswordInput data = new ResetPasswordInput();
+        data.setEmail("test@test.org");
+        data.setToken(publicToken);
+        data.setNewRawPassword("123456");
+        
+        PasswordResetToken token = new PasswordResetToken();
+        token.setToken("$2a$12$E1mvo/1OK5kUdGGkbpo2Ceswe24tHU22dj71Zb/YlD90nekZA9WrO");
+        token.setEmail("test@test.org");
+        token.setExpires(expires);
+        token.setUserguid("00000000-0000-0000-0000-000000000000");
+        
+        Email email = new Email();
+        email.setEmail("test@test.org");
+        email.setUserguid("88888888-8888-8888-8888-888888888888");
+        
+        when(passwordResetTokenRepository.load("test@test.org", expires)).thenReturn(token);
+        when(emailRepository.load("test@test.org")).thenReturn(email);
+        
+        Response response = target().path("/reset-password").request().post(Entity.json(data));
+        
+        assertEquals(400, response.getStatus());
+    }
+    
+    @Test
     public void testReset() {
         String expires = String.valueOf(new Date().getTime());
         String publicToken = Base64.getEncoder().encodeToString((expires + ".cea13f4d-0efc-4c66-9513-0cc36fcb08c9").getBytes());
@@ -134,8 +168,11 @@ public class ResetPasswordControllerTest extends WithServer {
         token.setToken("$2a$12$E1mvo/1OK5kUdGGkbpo2Ceswe24tHU22dj71Zb/YlD90nekZA9WrO");
         token.setEmail("test@test.org");
         token.setExpires(expires);
+        token.setUserguid("00000000-0000-0000-0000-000000000000");
         
         Email email = new Email();
+        email.setEmail("test@test.org");
+        email.setUserguid("00000000-0000-0000-0000-000000000000");
         
         when(passwordResetTokenRepository.load("test@test.org", expires)).thenReturn(token);
         when(emailRepository.load("test@test.org")).thenReturn(email);
