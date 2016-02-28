@@ -17,6 +17,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 import com.coding4people.mosquitoreport.api.buckets.BucketBinder;
 import com.coding4people.mosquitoreport.api.controllers.AuthEmailController;
 import com.coding4people.mosquitoreport.api.controllers.FocusController;
+import com.coding4people.mosquitoreport.api.controllers.HealthCheckController;
 import com.coding4people.mosquitoreport.api.controllers.PictureController;
 import com.coding4people.mosquitoreport.api.controllers.PostFocusController;
 import com.coding4people.mosquitoreport.api.controllers.ProfileController;
@@ -43,6 +44,7 @@ public class Main {
                 // Controllers
                 .register(AuthEmailController.class)
                 .register(FocusController.class)
+                .register(HealthCheckController.class)
                 .register(PictureController.class)
                 .register(PostFocusController.class)
                 .register(ProfileController.class)
