@@ -4,10 +4,17 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
+import com.amazonaws.services.cloudsearchv2.AmazonCloudSearch;
+
 public class AmazonCloudSearchFactoryTest {
 
     @Test
     public void testProvide() {
-        assertNotNull(new AmazonCloudSearchFactory().provide());
+        AmazonCloudSearchFactory factory = new AmazonCloudSearchFactory();
+        AmazonCloudSearch client = factory.provide();
+        
+        assertNotNull(client);
+        
+        factory.dispose(client);
     }
 }

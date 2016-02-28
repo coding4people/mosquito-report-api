@@ -7,7 +7,7 @@ import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 
 public class AWSCredentialsProviderFactory implements Factory<AWSCredentialsProvider> {
     @Override
-    public void dispose(AWSCredentialsProvider arg0) {
+    public void dispose(AWSCredentialsProvider provider) {
     }
 
     @Override

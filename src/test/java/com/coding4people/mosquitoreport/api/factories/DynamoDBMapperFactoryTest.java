@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import org.junit.Test;
 
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
 import com.coding4people.mosquitoreport.api.Env;
 
 public class DynamoDBMapperFactoryTest {
@@ -15,8 +16,12 @@ public class DynamoDBMapperFactoryTest {
     public void testProvide() {
         AmazonDynamoDB amazonDynamoDB = mock(AmazonDynamoDB.class);
         Env env = mock(Env.class);
+        DynamoDBMapperFactory factory = new DynamoDBMapperFactory(amazonDynamoDB, env);
+        DynamoDBMapper mapper = factory.provide();
         
-        assertNotNull(new DynamoDBMapperFactory(amazonDynamoDB, env).provide());
+        assertNotNull(mapper);
+        
+        factory.dispose(mapper);
         
         verify(env).get("MOSQUITO_REPORT_DYNAMODB_TABLE_PREFIX");
     }

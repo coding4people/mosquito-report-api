@@ -29,7 +29,8 @@ public class AmazonDynamoDBFactoryTest {
         AWSCredentialsProvider credentialsProvider = new StaticCredentialsProvider(
                 new BasicAWSCredentials("fake_access_key_id", "fake_secret_access_key"));
 
-        AmazonDynamoDB dynamoDB = new AmazonDynamoDBFactory(env, credentialsProvider, config).provide();
+        AmazonDynamoDBFactory factory = new AmazonDynamoDBFactory(env, credentialsProvider, config);
+        AmazonDynamoDB dynamoDB = factory.provide();
 
         String message = "";
 
@@ -42,5 +43,7 @@ public class AmazonDynamoDBFactoryTest {
         verify(env).get("MOSQUITO_REPORT_DYNAMODB_ENDPOINT");
 
         assertEquals("Unable to execute HTTP request: fakeendpoint: unknown error", message);
+        
+        factory.dispose(dynamoDB);
     }
 }

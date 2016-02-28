@@ -4,10 +4,17 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
+import com.amazonaws.ClientConfiguration;
+
 public class DynamoDBConfigurationFactoryTest {
 
     @Test
     public void testProvide() {
-        assertNotNull(new DynamoDBConfigurationFactory().provide());
+        DynamoDBConfigurationFactory factory = new DynamoDBConfigurationFactory();
+        ClientConfiguration instance = factory.provide();
+        
+        assertNotNull(instance);
+        
+        factory.dispose(instance);
     }
 }

@@ -59,5 +59,7 @@ public class CurrentUserFactoryTest extends WithService {
         verify(userRepository).load("00000000-0000-0000-0000-000000000000");
         
         assertEquals(user, factory.provide());
+        
+        factory.dispose(user);
     }
 }
