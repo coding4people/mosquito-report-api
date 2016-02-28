@@ -7,7 +7,7 @@ import org.junit.Test;
 public class AWSCredentialsProviderFactoryTest {
 
     @Test
-    public void testAmazonCloudSearchFactory() {
+    public void testProvide() {
         assertNotNull(new AWSCredentialsProviderFactory().provide());
     }
 }

@@ -10,7 +10,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 public class DynamoDBFactoryTest {
 
     @Test
-    public void testAmazonCloudSearchFactory() {
+    public void testProvide() {
         AmazonDynamoDB amazonDynamoDB = mock(AmazonDynamoDB.class);
         assertNotNull(new DynamoDBFactory(amazonDynamoDB).provide());
     }

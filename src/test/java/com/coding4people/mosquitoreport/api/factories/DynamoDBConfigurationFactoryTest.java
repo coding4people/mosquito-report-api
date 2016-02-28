@@ -7,7 +7,7 @@ import org.junit.Test;
 public class DynamoDBConfigurationFactoryTest {
 
     @Test
-    public void testAmazonCloudSearchFactory() {
+    public void testProvide() {
         assertNotNull(new DynamoDBConfigurationFactory().provide());
     }
 }

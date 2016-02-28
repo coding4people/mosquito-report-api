@@ -12,7 +12,7 @@ import com.coding4people.mosquitoreport.api.Env;
 public class DynamoDBMapperFactoryTest {
 
     @Test
-    public void testAmazonCloudSearchFactory() {
+    public void testProvide() {
         AmazonDynamoDB amazonDynamoDB = mock(AmazonDynamoDB.class);
         Env env = mock(Env.class);
         

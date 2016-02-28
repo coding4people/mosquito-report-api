@@ -19,7 +19,7 @@ import com.coding4people.mosquitoreport.api.Env;
 public class AmazonDynamoDBFactoryTest {
 
     @Test
-    public void testAmazonDynamoDBFactoryo() {
+    public void testProvide() {
         Env env = mock(Env.class);
         ClientConfiguration config = new ClientConfiguration();
         config.setRetryPolicy(PredefinedRetryPolicies.NO_RETRY_POLICY);
