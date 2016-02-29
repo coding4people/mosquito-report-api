@@ -1,6 +1,6 @@
 package com.coding4people.mosquitoreport.api.factories;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,14 +35,14 @@ public class AmazonDynamoDBFactoryTest {
         String message = "";
 
         try {
-            dynamoDB.listTables();
+            dynamoDB.listTables();  
         } catch (AmazonClientException e) {
             message = e.getMessage();
         }
 
         verify(env).get("MOSQUITO_REPORT_DYNAMODB_ENDPOINT");
 
-        assertEquals("Unable to execute HTTP request: fakeendpoint: unknown error", message);
+        assertTrue(message.startsWith("Unable to execute HTTP request: fakeendpoint"));
         
         factory.dispose(dynamoDB);
     }
