@@ -81,6 +81,11 @@
             <artifactId>imgscalr-lib</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.restfb</groupId>
+            <artifactId>restfb</artifactId>
+            <version>1.19.0</version>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
