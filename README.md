@@ -81,6 +81,17 @@ curl -i http://api.mosquito.report/auth/email \
 ```
 
 
+**Facebook authentication**
+
+```
+curl -i http://api.mosquito.report/auth/facebook \
+  -H 'Content-Type: application/json' \
+  --data '{
+    "token": "..."
+  }'
+```
+
+
 **Get user info**
 
 ```
@@ -108,6 +119,7 @@ curl -i http://api.mosquito.report/profile \
   }'
 ```
 
+
 **Request password reset**
 
 ```
@@ -117,6 +129,7 @@ curl -i http://api.mosquito.report/reset-password/request \
     "email": "test@test.org"
   }'
 ```
+
 
 **Reset password**
 
@@ -129,6 +142,7 @@ curl -i http://api.mosquito.report/reset-password \
     "newPassword": "123456"
   }'
 ```
+
 
 **Add new focus**
 
@@ -144,11 +158,13 @@ curl -i http://api.mosquito.report/focus \
   }'
 ```
 
+
 **Read focus details**
 
 ```
 curl -i http://api.mosquito.report/focus/00000000-0000-0000-0000-000000000000
 ```
+
 
 **Geoseach focus**
 

@@ -6,6 +6,7 @@ public class RepositoryBinder extends AbstractBinder {
     @Override
     protected void configure() {
         bind(EmailRepository.class).to(EmailRepository.class);
+        bind(FacebookUserRepository.class).to(FacebookUserRepository.class);
         bind(FocusRepository.class).to(FocusRepository.class);
         bind(PasswordResetTokenRepository.class).to(PasswordResetTokenRepository.class);
         bind(PictureRepository.class).to(PictureRepository.class);
