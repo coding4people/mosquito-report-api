@@ -14,6 +14,7 @@ import com.amazonaws.services.dynamodbv2.document.DynamoDB;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.coding4people.mosquitoreport.api.Env;
 import com.coding4people.mosquitoreport.api.models.User;
+import com.restfb.WebRequestor;
 
 public class FactoryBinder extends AbstractBinder {
     @Override
@@ -27,5 +28,6 @@ public class FactoryBinder extends AbstractBinder {
         bindFactory(DynamoDBFactory.class).to(DynamoDB.class).in(Singleton.class);
         bindFactory(DynamoDBMapperFactory.class).to(DynamoDBMapper.class).in(Singleton.class);
         bindFactory(EnvFactory.class).to(Env.class).in(Singleton.class);
+        bindFactory(WebRequestorFactory.class).to(WebRequestor.class).in(Singleton.class);
     }
 }
