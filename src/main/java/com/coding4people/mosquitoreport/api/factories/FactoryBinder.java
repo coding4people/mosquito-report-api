@@ -6,6 +6,7 @@ import org.glassfish.hk2.utilities.binding.AbstractBinder;
 import org.glassfish.jersey.process.internal.RequestScoped;
 
 import com.amazonaws.ClientConfiguration;
+import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.services.cloudsearchv2.AmazonCloudSearch;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
@@ -20,6 +21,7 @@ public class FactoryBinder extends AbstractBinder {
         bindFactory(AmazonCloudSearchFactory.class).to(AmazonCloudSearch.class).in(Singleton.class);
         bindFactory(AmazonDynamoDBFactory.class).to(AmazonDynamoDB.class).in(Singleton.class);
         bindFactory(AmazonS3ClientFactory.class).to(AmazonS3Client.class).in(Singleton.class);
+        bindFactory(AWSCredentialsProviderFactory.class).to(AWSCredentialsProvider.class).in(Singleton.class);
         bindFactory(CurrentUserFactory.class).to(User.class).in(RequestScoped.class);
         bindFactory(DynamoDBConfigurationFactory.class).to(ClientConfiguration.class).in(Singleton.class);
         bindFactory(DynamoDBFactory.class).to(DynamoDB.class).in(Singleton.class);
