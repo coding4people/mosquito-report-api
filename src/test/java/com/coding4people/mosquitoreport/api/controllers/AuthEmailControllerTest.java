@@ -19,7 +19,7 @@ import com.coding4people.mosquitoreport.api.models.Email;
 import com.coding4people.mosquitoreport.api.repositories.EmailRepository;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
-public class AuthControllerTest extends WithServer {
+public class AuthEmailControllerTest extends WithServer {
     @Mock
     private EmailRepository emailRepository;
 
