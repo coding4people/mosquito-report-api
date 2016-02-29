@@ -109,61 +109,46 @@ public class AuthFacebookController {
     }
 
     public static class FacebookResponse {
-        @Facebook String id;
+        @Facebook
+        public String id;
+        
         @Facebook("first_name")
-        String firstname;
+        public String firstname;
+        
         @Facebook("last_name")
-        String lastname;
-        @Facebook String email;
-        @Facebook String location;
-        @Facebook  String link;
+        public String lastname;
+        
+        @Facebook
+        public String email;
+        
+        @Facebook
+        public String location;
+        
+        @Facebook
+        public String link;
 
         public String getId() {
             return id;
-        }
-
-        public void setId(String id) {
-            this.id = id;
         }
 
         public String getFirstname() {
             return firstname;
         }
 
-        public void setFirstname(String firstname) {
-            this.firstname = firstname;
-        }
-
         public String getLastname() {
             return lastname;
-        }
-
-        public void setLastname(String lastname) {
-            this.lastname = lastname;
         }
 
         public String getEmail() {
             return email;
         }
 
-        public void setEmail(String email) {
-            this.email = email;
-        }
-
         public String getLocation() {
             return location;
         }
 
-        public void setLocation(String location) {
-            this.location = location;
-        }
-
         public String getLink() {
             return link;
-        }
-
-        public void setLink(String link) {
-            this.link = link;
         }
     }
 }

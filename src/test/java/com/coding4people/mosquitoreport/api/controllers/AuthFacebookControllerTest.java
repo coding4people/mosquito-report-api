@@ -110,7 +110,7 @@ public class AuthFacebookControllerTest extends WithServer {
     public void testNewUser() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode facebookResponse = mapper.createObjectNode().put("id", "123456").put("first_name", "Rogério")
-                .put("last_name", "Yokomizo").put("email", "test@test.org");
+                .put("last_name", "Yokomizo").put("email", "test@test.org").put("link", "facebooklink");
 
         AuthFacebookInput data = new AuthFacebookInput();
         data.setToken("validtoken");
