@@ -14,6 +14,12 @@ public class FacebookUser {
     
     @DynamoDBAttribute
     private String id;
+    
+    @DynamoDBAttribute
+    private String location;
+    
+    @DynamoDBAttribute
+    private String link;
 
     public String getToken() {
         return token;
@@ -37,5 +43,21 @@ public class FacebookUser {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

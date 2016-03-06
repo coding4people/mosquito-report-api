@@ -74,7 +74,8 @@ public class AuthFacebookControllerTest extends WithServer {
 
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode facebookResponse = mapper.createObjectNode().put("id", "123456").put("first_name", "Rogério")
-                .put("last_name", "Yokomizo").put("email", "test@test.org");
+                .put("last_name", "Yokomizo").put("email", "test@test.org").put("location", "Berlin")
+                .put("link", "https://fb.com/link");
 
         AuthFacebookInput data = new AuthFacebookInput();
         data.setToken("validtoken");
@@ -90,27 +91,30 @@ public class AuthFacebookControllerTest extends WithServer {
         assertEquals("application/json;charset=UTF-8", response.getHeaderString("Content-type"));
 
         verify(facebookUserRepository).load("validtoken");
-        
+
         ArgumentCaptor<FacebookUser> facebookUserCaptor = ArgumentCaptor.forClass(FacebookUser.class);
-        
+
         verify(facebookUserRepository).save(facebookUserCaptor.capture());
-        
+
         FacebookUser facebookUser = facebookUserCaptor.getValue();
-        
+
         assertEquals("123456", facebookUser.getId());
         assertEquals("validtoken", facebookUser.getToken());
         assertEquals("00000000-0000-0000-0000-000000000000", facebookUser.getUserguid());
+        assertEquals("Berlin", facebookUser.getLocation());
+        assertEquals("https://fb.com/link", facebookUser.getLink());
 
         ObjectNode result = response.readEntity(ObjectNode.class);
 
         assertTrue(result.has("token"));
     }
-    
+
     @Test
     public void testNewUser() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         ObjectNode facebookResponse = mapper.createObjectNode().put("id", "123456").put("first_name", "Rogério")
-                .put("last_name", "Yokomizo").put("email", "test@test.org").put("link", "facebooklink");
+                .put("last_name", "Yokomizo").put("email", "test@test.org").put("location", "Berlin")
+                .put("link", "https://fb.com/link");
 
         AuthFacebookInput data = new AuthFacebookInput();
         data.setToken("validtoken");
@@ -126,30 +130,32 @@ public class AuthFacebookControllerTest extends WithServer {
         assertEquals("application/json;charset=UTF-8", response.getHeaderString("Content-type"));
 
         verify(facebookUserRepository).load("validtoken");
-        
+
         ArgumentCaptor<FacebookUser> facebookUserCaptor = ArgumentCaptor.forClass(FacebookUser.class);
         ArgumentCaptor<Email> emailCaptor = ArgumentCaptor.forClass(Email.class);
         ArgumentCaptor<User> userCaptor = ArgumentCaptor.forClass(User.class);
-        
+
         verify(facebookUserRepository).save(facebookUserCaptor.capture());
         verify(emailRepository).save(emailCaptor.capture());
         verify(userRepository).save(userCaptor.capture());
-        
+
         FacebookUser facebookUser = facebookUserCaptor.getValue();
         Email email = emailCaptor.getValue();
         User user = userCaptor.getValue();
-        
+
         assertNotNull(facebookUser.getUserguid());
         assertEquals("123456", facebookUser.getId());
         assertEquals("validtoken", facebookUser.getToken());
-        
+
         assertNotNull(email.getUserguid());
         assertEquals("test@test.org", email.getEmail());
-        
+
         assertNotNull(user.getGuid());
         assertEquals("test@test.org", user.getEmail());
         assertEquals("Rogério", user.getFirstname());
         assertEquals("Yokomizo", user.getLastname());
+        assertEquals("Berlin", facebookUser.getLocation());
+        assertEquals("https://fb.com/link", facebookUser.getLink());
 
         ObjectNode result = response.readEntity(ObjectNode.class);
 

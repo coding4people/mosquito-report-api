@@ -83,6 +83,8 @@ public class AuthFacebookController {
             newFacebookUser.setUserguid(guid);
             newFacebookUser.setToken(input.getToken());
             newFacebookUser.setId(facebookResponse.getId());
+            newFacebookUser.setLocation(facebookResponse.getLocation());
+            newFacebookUser.setLink(facebookResponse.getLink());
             
             facebookUserRepository.save(newFacebookUser);
         } else {
