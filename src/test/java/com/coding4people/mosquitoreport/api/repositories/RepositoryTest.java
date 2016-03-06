@@ -103,23 +103,29 @@ public class RepositoryTest extends WithService {
     }
     
     @Test
-    public void testResourceInUseException() {
+    public void testResourceInUseException() throws InterruptedException {
         CreateTableRequest request = new CreateTableRequest();
 
         when(mapper.generateCreateTableRequest(Model.class)).thenReturn(request);
-        when(dynamoDB.createTable(request)).thenThrow(new ResourceInUseException(""));
+        when(dynamoDB.createTable(request)).thenReturn(table);
+        when(table.waitForActive()).thenThrow(new ResourceInUseException(""));
 
         getService(ModelRepository.class);
+        
+        verify(table).waitForActive();
     }
     
     @Test(expected = RuntimeException.class)
-    public void testInterruptedException() {
+    public void testInterruptedException() throws InterruptedException {
         CreateTableRequest request = new CreateTableRequest();
 
         when(mapper.generateCreateTableRequest(Model.class)).thenReturn(request);
-        when(dynamoDB.createTable(request)).thenThrow(new InterruptedException(""));
+        when(dynamoDB.createTable(request)).thenReturn(table);
+        when(table.waitForActive()).thenThrow(new InterruptedException(""));
 
         getService(ModelRepository.class);
+        
+        verify(table).waitForActive();
     }
 
     public static class Model {
