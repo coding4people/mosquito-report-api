@@ -24,7 +24,7 @@ public class AmazonDynamoDBFactoryTest {
         ClientConfiguration config = new ClientConfiguration();
         config.setRetryPolicy(PredefinedRetryPolicies.NO_RETRY_POLICY);
 
-        when(env.get("MOSQUITO_REPORT_DYNAMODB_ENDPOINT")).thenReturn("fakeendpoint");
+        when(env.get("DYNAMODB_ENDPOINT")).thenReturn("fakeendpoint");
 
         AWSCredentialsProvider credentialsProvider = new StaticCredentialsProvider(
                 new BasicAWSCredentials("fake_access_key_id", "fake_secret_access_key"));
@@ -40,7 +40,7 @@ public class AmazonDynamoDBFactoryTest {
             message = e.getMessage();
         }
 
-        verify(env).get("MOSQUITO_REPORT_DYNAMODB_ENDPOINT");
+        verify(env).get("DYNAMODB_ENDPOINT");
 
         assertTrue(message.startsWith("Unable to execute HTTP request: fakeendpoint"));
         

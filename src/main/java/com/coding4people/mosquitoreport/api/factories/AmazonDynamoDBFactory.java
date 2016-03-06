@@ -17,7 +17,7 @@ public class AmazonDynamoDBFactory implements Factory<AmazonDynamoDB> {
     public AmazonDynamoDBFactory(Env env, AWSCredentialsProvider credentialProvider, ClientConfiguration config) {
         client = new AmazonDynamoDBClient(credentialProvider, config);
 
-        String endpoint = env.get("MOSQUITO_REPORT_DYNAMODB_ENDPOINT");
+        String endpoint = env.get("DYNAMODB_ENDPOINT");
 
         if (endpoint != null) {
             client.setEndpoint(endpoint);

@@ -23,6 +23,6 @@ public class DynamoDBMapperFactoryTest {
         
         factory.dispose(mapper);
         
-        verify(env).get("MOSQUITO_REPORT_DYNAMODB_TABLE_PREFIX");
+        verify(env).get("DYNAMODB_TABLE_PREFIX");
     }
 }

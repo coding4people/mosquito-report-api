@@ -21,9 +21,9 @@
 docker run --rm -it --name coding4people/mosquito-report-api -p 80:9000 \
   -e "AWS_ACCESS_KEY_ID=..." \
   -e "AWS_SECRET_ACCESS_KEY=..." \
-  -e "MOSQUITO_REPORT_DYNAMODB_TABLE_PREFIX=localhost" \
-  -e "MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX=localhost" \
-  -e "MOSQUITO_REPORT_BUCKET_NAME_PICTURE=localhost.mosquitoreport.pictures" \
+  -e "DYNAMODB_TABLE_PREFIX=localhost" \
+  -e "CLOUDSEARCH_DOMAIN_PREFIX=localhost" \
+  -e "BUCKET_NAME_PICTURE=localhost.mosquitoreport.pictures" \
   mosquito-report-api
 ```
 
@@ -33,9 +33,9 @@ docker run --rm -it --name coding4people/mosquito-report-api -p 80:9000 \
 ```
 AWS_ACCESS_KEY_ID=..." \
 AWS_SECRET_ACCESS_KEY=..." \
-MOSQUITO_REPORT_DYNAMODB_TABLE_PREFIX=localhost" \
-MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX=localhost" \
-MOSQUITO_REPORT_BUCKET_NAME_PICTURE=localhost.mosquitoreport.pictures" \
+DYNAMODB_TABLE_PREFIX=localhost" \
+CLOUDSEARCH_DOMAIN_PREFIX=localhost" \
+BUCKET_NAME_PICTURE=localhost.mosquitoreport.pictures" \
 mvn clean exec:java
 ```
 

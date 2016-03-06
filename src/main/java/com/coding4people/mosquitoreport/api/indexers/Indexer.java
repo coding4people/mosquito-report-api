@@ -170,6 +170,6 @@ abstract public class Indexer<T extends WithGuid> {
     }
 
     protected String getPrefix() {
-        return Optional.ofNullable(env.get("MOSQUITO_REPORT_CLOUDSEARCH_DOMAIN_PREFIX")).orElse("localhost") + "-";
+        return Optional.ofNullable(env.get("CLOUDSEARCH_DOMAIN_PREFIX")).orElse("localhost") + "-";
     }
 }
