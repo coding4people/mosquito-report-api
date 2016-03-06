@@ -11,6 +11,7 @@ import javax.imageio.ImageWriteParam;
 import javax.imageio.ImageWriter;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.ws.rs.InternalServerErrorException;
 
 import org.imgscalr.Scalr;
 import org.imgscalr.Scalr.Method;
@@ -42,7 +43,7 @@ public class PictureBucket extends Bucket {
             // TODO handle and log
             e.printStackTrace();
 
-            throw new InternalError("Error uploading image");
+            throw new InternalServerErrorException("Error uploading image");
         }
     }
     

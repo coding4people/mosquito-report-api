@@ -7,9 +7,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 import java.util.List;
+
+import javax.ws.rs.InternalServerErrorException;
 
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -28,6 +31,20 @@ public class PictureBucketTest extends WithService {
     @Mock
     Env env;
 
+    @Test(expected = InternalServerErrorException.class)
+    public void testThrowsInternalServerErrorException() throws IOException {
+        PictureBucket bucket = getService(PictureBucket.class);
+        
+        InputStream stream = new InputStream() {
+            @Override
+            public int read() throws IOException {
+                throw new IOException();
+            }
+        };
+        
+        bucket.put("path", stream, null);
+    }
+    
     @Test
     public void testPut() {
         PictureBucket bucket = getService(PictureBucket.class);
@@ -38,14 +55,14 @@ public class PictureBucketTest extends WithService {
         
         when(amazonS3Client.putObject(requestCaptor.capture())).thenReturn(expected);
         
-        bucket.put("path", samplePicture(), null);
+        bucket.put("path.anyextension", samplePicture(), null);
         
         List<PutObjectRequest> request = requestCaptor.getAllValues();
         
         verify(amazonS3Client, times(2)).putObject(any());
         
         assertEquals("path.480x360.jpg", request.get(0).getKey());
-        assertEquals("path", request.get(1).getKey());
+        assertEquals("path.anyextension", request.get(1).getKey());
     }
 
     public InputStream samplePicture() {
