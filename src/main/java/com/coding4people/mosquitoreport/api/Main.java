@@ -26,10 +26,6 @@ public class Main {
         server.start();
     }
 
-    public void stop() {
-        server.shutdownNow();
-    }
-
     public static void main(String[] args) throws IOException {
         final Options options = new Options().addOption("port", true, "It will also look for $PORT env var.")
                 .addOption("dynamodb_endpoint", true, "It will also look for $DYNAMODB_ENDPOINT env var.")
