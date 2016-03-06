@@ -8,6 +8,7 @@ import java.io.InputStream;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.ws.rs.InternalServerErrorException;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.AccessControlList;
@@ -78,7 +79,7 @@ abstract public class Bucket {
             // TODO handle and log
             e.printStackTrace();
 
-            throw new InternalError("Error uploading image");
+            throw new InternalServerErrorException("Error uploading image");
         }
         
     }

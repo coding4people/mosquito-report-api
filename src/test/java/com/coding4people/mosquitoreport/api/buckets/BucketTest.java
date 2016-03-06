@@ -4,9 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
 import java.io.ByteArrayInputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.ws.rs.InternalServerErrorException;
 
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
@@ -24,6 +27,20 @@ public class BucketTest extends WithService {
     @Mock
     AmazonS3Client amazonS3Client;
 
+    @Test(expected = InternalServerErrorException.class)
+    public void testThrowsInternalServerErrorException() throws IOException {
+        ModelBucket bucket = getService(ModelBucket.class);
+        
+        InputStream stream = new InputStream() {
+            @Override
+            public int read() throws IOException {
+                throw new IOException();
+            }
+        };
+        
+        bucket.put("path", stream, null);
+    }
+    
     @Test
     public void testPut() {
         ModelBucket bucket = getService(ModelBucket.class);
