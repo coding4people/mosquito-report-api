@@ -9,6 +9,6 @@ abstract public class WithServer extends JerseyTest implements BaseTest {
     protected ResourceConfig configure() {
         MockitoAnnotations.initMocks(this);
 
-        return Main.commonConfig().register(new MockBinder(this));
+        return  new Config().configureFramework().register(new MockBinder(this));
     }
 }

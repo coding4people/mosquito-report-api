@@ -12,7 +12,7 @@ abstract public class WithService implements BaseTest {
     }
 
     protected ResourceConfig configure() {
-        return Main.commonConfig().register(new MockBinder(this));
+        return new Config().configureFramework().register(new MockBinder(this));
     }
     
     protected <T> T getService(Class<T> clazz) {
