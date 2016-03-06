@@ -30,7 +30,7 @@ public class CurrentUserFactoryTest extends WithService {
 
     @Test(expected = ForbiddenException.class)
     public void testThrowsForbiddenExceptionWhenTokenIsInvalid() {
-        when(requestContext.getHeaderString("Authorization")).thenReturn("Token invalidtoken");
+        when(requestContext.getHeaderString("Authorization")).thenReturn("Token i n v a l i d");
 
         new CurrentUserFactory(userRepository, requestContext);
     }
