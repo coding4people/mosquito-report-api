@@ -1,0 +1,15 @@
+package com.coding4people.mosquitoreport.api;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
+import org.junit.Test;
+
+public class EnvTest {
+    @Test
+    public void testProperties() {
+        assertNull(Env.instance.get("NON-EXISTENT-ENV-VAR"));
+        Env.instance.register("NON-EXISTENT-ENV-VAR", "Some string value");
+        assertEquals("Some string value", Env.instance.get("NON-EXISTENT-ENV-VAR"));
+    }
+}
