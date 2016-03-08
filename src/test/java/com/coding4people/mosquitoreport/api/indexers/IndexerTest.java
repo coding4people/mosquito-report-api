@@ -119,7 +119,7 @@ public class IndexerTest extends WithService {
         when(amazonCloudSearch.describeDomains(any())).thenReturn(new DescribeDomainsResult()
                 .withDomainStatusList(Lists.newArrayList(new DomainStatus().withSearchService(new ServiceEndpoint().withEndpoint("http://localhost")))));
         
-        AmazonCloudSearchDomain domain = getService(ModelIndexer.class).createDomain();
+        AmazonCloudSearchDomain domain = getService(ModelIndexer2.class).createDomain();
         assertNotNull(domain);
         assertTrue(domain instanceof AmazonCloudSearchDomain);
     }
@@ -137,7 +137,7 @@ public class IndexerTest extends WithService {
         
         ArgumentCaptor<Runnable> runnableCaptor = ArgumentCaptor.forClass(Runnable.class);
         
-        getService(ModelIndexer.class).index(Lists.newArrayList(model));
+        getService(ModelIndexer.class).index(model);
         
         verify(executor).submit(runnableCaptor.capture());
         
@@ -214,6 +214,16 @@ public class IndexerTest extends WithService {
         @Override
         protected AmazonCloudSearchDomain createDomain() {
             return domainMock;
+        }
+    }
+    
+    public static class ModelIndexer2 extends Indexer<Model> {
+        @Inject
+        AmazonCloudSearchDomainClient domainMock;
+        
+        @Override
+        protected Class<Model> getType() {
+            return Model.class;
         }
     }
 }
