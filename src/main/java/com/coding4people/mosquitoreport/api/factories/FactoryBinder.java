@@ -1,5 +1,7 @@
 package com.coding4people.mosquitoreport.api.factories;
 
+import java.util.concurrent.ExecutorService;
+
 import javax.inject.Singleton;
 
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
@@ -28,6 +30,7 @@ public class FactoryBinder extends AbstractBinder {
         bindFactory(DynamoDBFactory.class).to(DynamoDB.class).in(Singleton.class);
         bindFactory(DynamoDBMapperFactory.class).to(DynamoDBMapper.class).in(Singleton.class);
         bindFactory(EnvFactory.class).to(Env.class).in(Singleton.class);
+        bindFactory(ExecutorServiceFactory.class).to(ExecutorService.class).in(Singleton.class);
         bindFactory(WebRequestorFactory.class).to(WebRequestor.class).in(Singleton.class);
     }
 }
