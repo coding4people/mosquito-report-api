@@ -54,14 +54,7 @@ abstract public class Indexer<T extends WithGuid> {
     // TODO send to SQS in order to handle it asynchronously
     // TODO implement recover and fallback
     public void index(List<T> items) {
-        executor.submit(new Callable<Void>() {
-            @Override
-            public Void call() throws Exception {
-                indexSync(items);
-
-                return null;
-            }
-        });
+        executor.submit(() -> indexSync(items));
     }
 
     private void indexSync(List<T> items) {
