@@ -7,9 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
@@ -40,8 +38,11 @@ abstract public class Indexer<T extends WithGuid> {
     @Inject
     Env env;
 
-    // TODO create factory in order to inject thread configuration
+    @Inject
     ExecutorService executor;
+    
+    @Inject
+    ObjectMapper objectMapper;
 
     AmazonCloudSearchDomain domain;
 
@@ -59,7 +60,7 @@ abstract public class Indexer<T extends WithGuid> {
 
     private void indexSync(List<T> items) {
         try {
-            String json = new ObjectMapper().writeValueAsString(items.stream().map(item -> {
+            String json = objectMapper.writeValueAsString(items.stream().map(item -> {
                 Map<String, Object> map = new HashMap<>();
                 map.put("type", "add");
                 map.put("id", item.getGuid());
@@ -134,9 +135,6 @@ abstract public class Indexer<T extends WithGuid> {
 
     @PostConstruct
     protected void postConstruct() {
-        // TODO get from env
-        executor = Executors.newFixedThreadPool(10);
-
         DescribeDomainsRequest describeDomainsRequest = new DescribeDomainsRequest().withDomainNames(getDomainName());
         List<DomainStatus> list = amazonCloudSearch.describeDomains(describeDomainsRequest).getDomainStatusList();
 
