@@ -15,6 +15,7 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 
 import com.coding4people.mosquitoreport.api.WithServer;
+import com.coding4people.mosquitoreport.api.auth.AuthenticationService;
 import com.coding4people.mosquitoreport.api.controllers.AuthFacebookController.AuthFacebookInput;
 import com.coding4people.mosquitoreport.api.models.Email;
 import com.coding4people.mosquitoreport.api.models.FacebookUser;
@@ -38,6 +39,9 @@ public class AuthFacebookControllerTest extends WithServer {
 
     @Mock
     FacebookUserRepository facebookUserRepository;
+    
+    @Mock
+    AuthenticationService authenticationService;
 
     @Override
     protected ResourceConfig configure() {
@@ -53,6 +57,7 @@ public class AuthFacebookControllerTest extends WithServer {
         data.setToken("validtoken");
 
         when(facebookUserRepository.load("validtoken")).thenReturn(facebookUser);
+        when(authenticationService.generateToken("00000000-0000-0000-0000-000000000000")).thenReturn("token");
 
         Response response = target().path("/auth/facebook").request().post(Entity.json(data));
 
@@ -63,7 +68,7 @@ public class AuthFacebookControllerTest extends WithServer {
 
         ObjectNode result = response.readEntity(ObjectNode.class);
 
-        assertTrue(result.has("token"));
+        assertEquals("token", result.get("token").asText());
     }
 
     @Test
@@ -84,6 +89,7 @@ public class AuthFacebookControllerTest extends WithServer {
         when(webRequestor.executeGet(any())).thenReturn(new com.restfb.WebRequestor.Response(HttpURLConnection.HTTP_OK,
                 mapper.writeValueAsString(facebookResponse)));
         when(emailRepository.load("test@test.org")).thenReturn(email);
+        when(authenticationService.generateToken("00000000-0000-0000-0000-000000000000")).thenReturn("token");
 
         Response response = target().path("/auth/facebook").request().post(Entity.json(data));
 
@@ -106,7 +112,7 @@ public class AuthFacebookControllerTest extends WithServer {
 
         ObjectNode result = response.readEntity(ObjectNode.class);
 
-        assertTrue(result.has("token"));
+        assertEquals("token", result.get("token").asText());
     }
 
     @Test
@@ -123,6 +129,7 @@ public class AuthFacebookControllerTest extends WithServer {
         when(webRequestor.executeGet(any())).thenReturn(new com.restfb.WebRequestor.Response(HttpURLConnection.HTTP_OK,
                 mapper.writeValueAsString(facebookResponse)));
         when(emailRepository.load("test@test.org")).thenReturn(null);
+        when(authenticationService.generateToken(any())).thenReturn("token");
 
         Response response = target().path("/auth/facebook").request().post(Entity.json(data));
 
@@ -159,6 +166,6 @@ public class AuthFacebookControllerTest extends WithServer {
 
         ObjectNode result = response.readEntity(ObjectNode.class);
 
-        assertTrue(result.has("token"));
+        assertEquals("token", result.get("token").asText());
     }
 }

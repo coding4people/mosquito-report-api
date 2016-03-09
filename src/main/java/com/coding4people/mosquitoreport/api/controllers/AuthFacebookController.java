@@ -1,6 +1,5 @@
 package com.coding4people.mosquitoreport.api.controllers;
 
-import java.util.Base64;
 import java.util.UUID;
 
 import javax.inject.Inject;
@@ -11,6 +10,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import com.coding4people.mosquitoreport.api.auth.AuthenticationService;
 import com.coding4people.mosquitoreport.api.models.Email;
 import com.coding4people.mosquitoreport.api.models.FacebookUser;
 import com.coding4people.mosquitoreport.api.models.User;
@@ -40,6 +40,9 @@ public class AuthFacebookController {
 
     @Inject
     FacebookUserRepository facebookUserRepository;
+    
+    @Inject
+    AuthenticationService authenticationService;
 
     @POST
     @Consumes("application/json")
@@ -91,10 +94,7 @@ public class AuthFacebookController {
             guid = facebookUser.getUserguid();
         }
         
-        //TODO implement decent authentication
-        final String token = Base64.getEncoder().encodeToString(guid.getBytes());
-
-        return new ObjectMapper().createObjectNode().put("token", token);
+        return new ObjectMapper().createObjectNode().put("token", authenticationService.generateToken(guid));
     }
 
     public static class AuthFacebookInput {
