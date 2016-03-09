@@ -1,6 +1,7 @@
 package com.coding4people.mosquitoreport.api;
 
 import java.util.Map;
+import java.util.Optional;
 
 import jersey.repackaged.com.google.common.collect.Maps;
 
@@ -9,8 +10,8 @@ public class Env {
     
     private Map<String, String> properties = Maps.newHashMap();
     
-    public String get(String key) {
-        return properties.getOrDefault(key, System.getenv(key));
+    public Optional<String> get(String key) {
+        return Optional.ofNullable(properties.getOrDefault(key, System.getenv(key)));
     }
     
     public Env register(String key, String value) {

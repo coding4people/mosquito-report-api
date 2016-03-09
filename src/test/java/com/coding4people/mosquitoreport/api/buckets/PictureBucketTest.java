@@ -28,8 +28,12 @@ public class PictureBucketTest extends WithService {
     @Mock
     AmazonS3Client amazonS3Client;
 
-    @Mock
-    Env env;
+    Env env = new Env().register("BUCKET_NAME_PICTURE", "test");
+    
+    @Override
+    public Env getEnv() {
+        return env;
+    }
 
     @Test(expected = InternalServerErrorException.class)
     public void testThrowsInternalServerErrorException() throws IOException {

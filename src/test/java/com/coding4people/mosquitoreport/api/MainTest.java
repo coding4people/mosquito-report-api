@@ -34,11 +34,11 @@ public class MainTest {
 
         verify(server).start();
 
-        assertEquals("9876", Env.instance.get("PORT"));
-        assertEquals("dynamodb_endpoint_value", Env.instance.get("DYNAMODB_ENDPOINT"));
-        assertEquals("dynamodb_table_prefix_value", Env.instance.get("DYNAMODB_TABLE_PREFIX"));
-        assertEquals("bucket_name_picture_value", Env.instance.get("BUCKET_NAME_PICTURE"));
-        assertEquals("cloudsearch_domain_prefix_value", Env.instance.get("CLOUDSEARCH_DOMAIN_PREFIX"));
+        assertEquals("9876", Env.instance.get("PORT").get());
+        assertEquals("dynamodb_endpoint_value", Env.instance.get("DYNAMODB_ENDPOINT").get());
+        assertEquals("dynamodb_table_prefix_value", Env.instance.get("DYNAMODB_TABLE_PREFIX").get());
+        assertEquals("bucket_name_picture_value", Env.instance.get("BUCKET_NAME_PICTURE").get());
+        assertEquals("cloudsearch_domain_prefix_value", Env.instance.get("CLOUDSEARCH_DOMAIN_PREFIX").get());
     }
 
     @Test

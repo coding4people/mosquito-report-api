@@ -3,6 +3,9 @@ package com.coding4people.mosquitoreport.api.factories;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -16,6 +19,7 @@ public class DynamoDBMapperFactoryTest {
     public void testProvide() {
         AmazonDynamoDB amazonDynamoDB = mock(AmazonDynamoDB.class);
         Env env = mock(Env.class);
+        when(env.get("DYNAMODB_TABLE_PREFIX")).thenReturn(Optional.of("table"));
         DynamoDBMapperFactory factory = new DynamoDBMapperFactory(amazonDynamoDB, env);
         DynamoDBMapper mapper = factory.provide();
         

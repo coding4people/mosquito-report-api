@@ -1,7 +1,5 @@
 package com.coding4people.mosquitoreport.api.factories;
 
-import java.util.Optional;
-
 import javax.inject.Inject;
 
 import org.glassfish.hk2.api.Factory;
@@ -19,8 +17,8 @@ public class DynamoDBMapperFactory implements Factory<DynamoDBMapper> {
     public DynamoDBMapperFactory(AmazonDynamoDB client, Env env) {
         mapper = new DynamoDBMapper(client,
                 new DynamoDBMapperConfig.Builder()
-                        .withTableNameOverride(TableNameOverride.withTableNamePrefix(Optional
-                                .ofNullable(env.get("DYNAMODB_TABLE_PREFIX")).orElse("localhost") + "."))
+                        .withTableNameOverride(TableNameOverride
+                                .withTableNamePrefix(env.get("DYNAMODB_TABLE_PREFIX").orElse("localhost") + "."))
                 .build());
     }
 

@@ -10,7 +10,7 @@ import com.coding4people.mosquitoreport.api.Env;
 
 public class HttpServerFactory {
     public HttpServer provide() {
-        return GrizzlyHttpServerFactory.createHttpServer(URI.create("http://0.0.0.0:" + Env.instance.get("PORT")),
+        return GrizzlyHttpServerFactory.createHttpServer(URI.create("http://0.0.0.0:" + Env.instance.get("PORT").orElse("9000")),
                 new Config().configureAuthentication().configureBinders().configureControllers()
                         .configureExceptionMappers().configureFilters().configureFramework());
     }

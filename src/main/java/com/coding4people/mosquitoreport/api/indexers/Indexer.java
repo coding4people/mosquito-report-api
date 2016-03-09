@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
@@ -161,6 +160,6 @@ abstract public class Indexer<T extends WithGuid> {
     }
 
     protected String getPrefix() {
-        return Optional.ofNullable(env.get("CLOUDSEARCH_DOMAIN_PREFIX")).orElse("localhost") + "-";
+        return env.get("CLOUDSEARCH_DOMAIN_PREFIX").orElse("localhost") + "-";
     }
 }

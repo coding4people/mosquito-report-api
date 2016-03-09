@@ -1,5 +1,7 @@
 package com.coding4people.mosquitoreport.api.factories;
 
+import java.util.Optional;
+
 import javax.inject.Inject;
 
 import org.glassfish.hk2.api.Factory;
@@ -17,10 +19,10 @@ public class AmazonDynamoDBFactory implements Factory<AmazonDynamoDB> {
     public AmazonDynamoDBFactory(Env env, AWSCredentialsProvider credentialProvider, ClientConfiguration config) {
         client = new AmazonDynamoDBClient(credentialProvider, config);
 
-        String endpoint = env.get("DYNAMODB_ENDPOINT");
+        Optional<String> endpoint = env.get("DYNAMODB_ENDPOINT");
 
-        if (endpoint != null) {
-            client.setEndpoint(endpoint);
+        if (endpoint.isPresent()) {
+            client.setEndpoint(endpoint.get());
         }
     }
 

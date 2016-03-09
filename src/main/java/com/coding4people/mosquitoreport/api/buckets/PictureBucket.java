@@ -26,7 +26,7 @@ public class PictureBucket extends Bucket {
 
     @Override
     protected String getBucketName() {
-        return env.get("BUCKET_NAME_PICTURE");
+        return env.get("BUCKET_NAME_PICTURE").orElseThrow(() -> new IllegalArgumentException("Missing env var: BUCKET_NAME_PICTURE"));
     }
 
     // TODO make it parallel
