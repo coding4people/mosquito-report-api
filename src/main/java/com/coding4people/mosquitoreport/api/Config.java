@@ -7,6 +7,7 @@ import org.glassfish.jersey.CommonProperties;
 import org.glassfish.jersey.media.multipart.MultiPartFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 
+import com.coding4people.mosquitoreport.api.auth.AuthenticationBinder;
 import com.coding4people.mosquitoreport.api.buckets.BucketBinder;
 import com.coding4people.mosquitoreport.api.controllers.AuthEmailController;
 import com.coding4people.mosquitoreport.api.controllers.AuthFacebookController;
@@ -47,6 +48,12 @@ public class Config extends ResourceConfig {
         return this;
     }
 
+    public Config configureAuthentication() {
+        register(new AuthenticationBinder());
+        
+        return this;
+    }
+    
     public Config configureExceptionMappers() {
         register(BadRequestExceptionMapper.class);
         register(ForbiddenExceptionMapper.class);
