@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import com.coding4people.mosquitoreport.api.WithService;
+import com.coding4people.mosquitoreport.api.auth.AuthenticationService;
 import com.coding4people.mosquitoreport.api.models.User;
 import com.coding4people.mosquitoreport.api.repositories.UserRepository;
 
@@ -20,28 +21,32 @@ public class CurrentUserFactoryTest extends WithService {
 
     @Mock
     ContainerRequestContext requestContext;
+    
+    @Mock
+    AuthenticationService authenticationService;
 
     @Test(expected = ForbiddenException.class)
     public void testThrowsForbiddenExceptionWhenThereIsNoAuthorizationHeader() {
         when(requestContext.getHeaderString("Authorization")).thenReturn(null);
 
-        new CurrentUserFactory(userRepository, requestContext);
+        new CurrentUserFactory(userRepository, requestContext, authenticationService);
     }
 
     @Test(expected = ForbiddenException.class)
     public void testThrowsForbiddenExceptionWhenTokenIsInvalid() {
         when(requestContext.getHeaderString("Authorization")).thenReturn("Token i n v a l i d");
 
-        new CurrentUserFactory(userRepository, requestContext);
+        new CurrentUserFactory(userRepository, requestContext, authenticationService);
     }
 
     @Test(expected = ForbiddenException.class)
     public void testThrowsForbiddenExceptionWhenUserNotFound() {
         when(requestContext.getHeaderString("Authorization"))
                 .thenReturn("Token MDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAw");
+        when(authenticationService.identify("MDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAw")).thenReturn("00000000-0000-0000-0000-000000000000");
         when(userRepository.load("00000000-0000-0000-0000-000000000000")).thenReturn(null);
 
-        new CurrentUserFactory(userRepository, requestContext);
+        new CurrentUserFactory(userRepository, requestContext, authenticationService);
 
         verify(userRepository).load("00000000-0000-0000-0000-000000000000");
     }
@@ -52,9 +57,10 @@ public class CurrentUserFactoryTest extends WithService {
 
         when(requestContext.getHeaderString("Authorization"))
                 .thenReturn("Token MDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAw");
+        when(authenticationService.identify("MDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAw")).thenReturn("00000000-0000-0000-0000-000000000000");
         when(userRepository.load("00000000-0000-0000-0000-000000000000")).thenReturn(user);
 
-        CurrentUserFactory factory = new CurrentUserFactory(userRepository, requestContext);
+        CurrentUserFactory factory = new CurrentUserFactory(userRepository, requestContext, authenticationService);
 
         verify(userRepository).load("00000000-0000-0000-0000-000000000000");
         
