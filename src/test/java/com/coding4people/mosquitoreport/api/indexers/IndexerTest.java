@@ -43,9 +43,6 @@ public class IndexerTest extends WithService {
     AmazonCloudSearch amazonCloudSearch;
 
     @Mock
-    Env env;
-
-    @Mock
     AmazonCloudSearchDomainClient domain;
     
     @Mock
@@ -53,10 +50,16 @@ public class IndexerTest extends WithService {
     
     @Mock
     ObjectMapper objectMapper;
+    
+    Env env = new Env().register("CLOUDSEARCH_DOMAIN_PREFIX", "test");
+    
+    @Override
+    public Env getEnv() {
+        return env;
+    }
 
     @Test
     public void testThrowsExecptionWhenSearchDomainDoesNotExist() {
-        when(env.get("CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
         when(amazonCloudSearch.describeDomains(any()))
                 .thenReturn(new DescribeDomainsResult().withDomainStatusList(Lists.newArrayList()));
 
@@ -74,7 +77,6 @@ public class IndexerTest extends WithService {
 
     @Test
     public void testThrowsExecptionWhenSearchServiceDoesNotExist() {
-        when(env.get("CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
         when(amazonCloudSearch.describeDomains(any())).thenReturn(new DescribeDomainsResult()
                 .withDomainStatusList(Lists.newArrayList(new DomainStatus().withSearchService(new ServiceEndpoint()))));
 
@@ -92,7 +94,6 @@ public class IndexerTest extends WithService {
     
     @Test
     public void testSearchCenter() {
-        when(env.get("CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
         when(amazonCloudSearch.describeDomains(any())).thenReturn(new DescribeDomainsResult()
                 .withDomainStatusList(Lists.newArrayList(new DomainStatus().withSearchService(new ServiceEndpoint().withEndpoint("http://localhost")))));
 
@@ -115,7 +116,6 @@ public class IndexerTest extends WithService {
     
     @Test
     public void testCreateDomain() {
-        when(env.get("CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
         when(amazonCloudSearch.describeDomains(any())).thenReturn(new DescribeDomainsResult()
                 .withDomainStatusList(Lists.newArrayList(new DomainStatus().withSearchService(new ServiceEndpoint().withEndpoint("http://localhost")))));
         
@@ -126,7 +126,6 @@ public class IndexerTest extends WithService {
     
     @Test
     public void testIndex() throws Exception {
-        when(env.get("CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
         when(amazonCloudSearch.describeDomains(any())).thenReturn(new DescribeDomainsResult()
                 .withDomainStatusList(Lists.newArrayList(new DomainStatus().withSearchService(new ServiceEndpoint().withEndpoint("http://localhost")))));
         
@@ -160,7 +159,6 @@ public class IndexerTest extends WithService {
     
     @Test
     public void testIndexJsonProcessingException() throws Exception {
-        when(env.get("CLOUDSEARCH_DOMAIN_PREFIX")).thenReturn("test");
         when(amazonCloudSearch.describeDomains(any())).thenReturn(new DescribeDomainsResult()
                 .withDomainStatusList(Lists.newArrayList(new DomainStatus().withSearchService(new ServiceEndpoint().withEndpoint("http://localhost")))));
         
