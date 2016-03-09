@@ -1,7 +1,6 @@
 package com.coding4people.mosquitoreport.api.controllers;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -14,6 +13,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 
 import com.coding4people.mosquitoreport.api.WithServer;
+import com.coding4people.mosquitoreport.api.auth.AuthenticationService;
 import com.coding4people.mosquitoreport.api.controllers.AuthEmailController.AuthInput;
 import com.coding4people.mosquitoreport.api.models.Email;
 import com.coding4people.mosquitoreport.api.repositories.EmailRepository;
@@ -22,6 +22,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class AuthEmailControllerTest extends WithServer {
     @Mock
     private EmailRepository emailRepository;
+    
+    @Mock
+    AuthenticationService authenticationService;
 
     private Email email;
 
@@ -62,6 +65,7 @@ public class AuthEmailControllerTest extends WithServer {
         data.setPassword("123456");
 
         when(emailRepository.load("test@test.org")).thenReturn(email);
+        when(authenticationService.generateToken("00000000-0000-0000-0000-000000000000")).thenReturn("token");
 
         Response response = target().path("/auth/email").request().post(Entity.json(data));
 
@@ -70,6 +74,6 @@ public class AuthEmailControllerTest extends WithServer {
 
         ObjectNode result = response.readEntity(ObjectNode.class);
         verify(emailRepository).load("test@test.org");
-        assertTrue(result.has("token"));
+        assertEquals("token", result.get("token").asText());
     }
 }

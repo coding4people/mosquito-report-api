@@ -1,7 +1,5 @@
 package com.coding4people.mosquitoreport.api.controllers;
 
-import java.util.Base64;
-
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -11,6 +9,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 
+import com.coding4people.mosquitoreport.api.auth.AuthenticationService;
 import com.coding4people.mosquitoreport.api.models.Email;
 import com.coding4people.mosquitoreport.api.repositories.EmailRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,6 +19,9 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 public class AuthEmailController {
     @Inject
     EmailRepository emailRepository;
+    
+    @Inject
+    AuthenticationService authenticationService;
 
     @POST
     @Consumes("application/json")
@@ -31,10 +33,7 @@ public class AuthEmailController {
             throw new ForbiddenException("Invalid email or password");
         }
         
-        //TODO implement decent authentication
-        final String token = Base64.getEncoder().encodeToString(email.getUserguid().getBytes());
-
-        return new ObjectMapper().createObjectNode().put("token", token);
+        return new ObjectMapper().createObjectNode().put("token", authenticationService.generateToken(email.getUserguid()));
     }
 
     public static class AuthInput {
