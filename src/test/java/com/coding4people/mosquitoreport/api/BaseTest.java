@@ -6,4 +6,8 @@ public interface BaseTest {
     default User getCurrentUser() {
         return new User();
     }
+    
+    default Env getEnv() {
+        return new Env();
+    }
 }

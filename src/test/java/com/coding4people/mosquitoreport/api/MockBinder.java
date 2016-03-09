@@ -20,6 +20,7 @@ public class MockBinder extends AbstractBinder {
     @Override
     protected void configure() {
         bindFactory(new InstanceFactory<User>(test.getCurrentUser())).to(User.class);
+        bindFactory(new InstanceFactory<Env>(test.getEnv())).to(Env.class);
         
         for (Field field : fields) {
             if (field.isAnnotationPresent(Mock.class)) {
