@@ -23,6 +23,20 @@ public class AuthEmailController {
     @Inject
     AuthenticationService authenticationService;
 
+    /**
+     * @api {post} /auth/email Authenticate an user using his email
+     * @apiName GetUser
+     * @apiGroup User
+     * 
+     * @apiParam {String} email
+     * @apiParam {String} password
+     * 
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "token": "..."
+     *     }
+     */
     @POST
     @Consumes("application/json")
     @Produces("application/json;charset=UTF-8")
