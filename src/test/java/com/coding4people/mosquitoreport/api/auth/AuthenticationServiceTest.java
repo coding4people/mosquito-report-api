@@ -58,6 +58,6 @@ public class AuthenticationServiceTest extends WithService {
     public void testInvalidToken() {
         AuthenticationService service = getService(AuthenticationService.class);
         
-        service.identify("MDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAwMDAwMDAwMC4kMmEkMTIkQW9kSzBuenowa3RrWWpqZ2I5R1RndTZCb3AuNWVzZVJPQWNjYTNUSUc0aElQcTNuUHFMaWk=");
+        service.identify("MDAwMDAwMDAtMDAwMC0wMDAwLTAwMDAtMDAwMDAwMDAwMDAwLiQyYSQxMiRBb2RLMG56ejBrdGtZampnYjlHVGd1NkJvcC41ZXNlUk9BY2NhM1RJRzRoSVBxM25QcUxpaQ==");
     }
 }
