@@ -25,12 +25,12 @@ import com.amazonaws.services.cloudsearchv2.model.DomainStatus;
 import com.amazonaws.services.cloudsearchv2.model.ServiceEndpoint;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.coding4people.mosquitoreport.api.Env;
-import com.coding4people.mosquitoreport.api.models.WithGuid;
+import com.coding4people.mosquitoreport.api.models.Searchable;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Singleton
-abstract public class Indexer<T extends WithGuid> {
+abstract public class Indexer<T extends Searchable> {
     @Inject
     AmazonCloudSearch amazonCloudSearch;
 
@@ -62,7 +62,7 @@ abstract public class Indexer<T extends WithGuid> {
             String json = objectMapper.writeValueAsString(items.stream().map(item -> {
                 Map<String, Object> map = new HashMap<>();
                 map.put("type", "add");
-                map.put("id", item.getGuid());
+                map.put("id", item.getSearchId());
                 map.put("fields", item);
                 return map;
             }).collect(Collectors.toList()));

@@ -31,7 +31,7 @@ import com.amazonaws.services.cloudsearchv2.model.ServiceEndpoint;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.coding4people.mosquitoreport.api.Env;
 import com.coding4people.mosquitoreport.api.WithService;
-import com.coding4people.mosquitoreport.api.models.WithGuid;
+import com.coding4people.mosquitoreport.api.models.Searchable;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -187,16 +187,20 @@ public class IndexerTest extends WithService {
     }
 
     @DynamoDBTable(tableName = "model")
-    public static class Model implements WithGuid {
+    public static class Model implements Searchable {
         private String guid;
 
-        @Override
         public String getGuid() {
             return guid;
         }
 
         public void setGuid(String guid) {
             this.guid = guid;
+        }
+        
+        @Override
+        public String getSearchId() {
+            return guid;
         }
     }
 

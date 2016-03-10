@@ -7,7 +7,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @DynamoDBTable(tableName = "focus")
-public class Focus implements WithGuid {
+public class Focus implements Searchable {
     @DynamoDBHashKey
     private String guid;
     
@@ -80,5 +80,12 @@ public class Focus implements WithGuid {
 
     public void setAuthoruserguid(String authoruserguid) {
         this.authoruserguid = authoruserguid;
+    }
+
+    @Override
+    @JsonIgnore
+    public String getSearchId() {
+        // We use this format to make it easy to index all data using AWS Console
+        return guid + "_" + createat;
     }
 }
