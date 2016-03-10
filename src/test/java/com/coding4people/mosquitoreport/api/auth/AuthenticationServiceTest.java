@@ -28,9 +28,9 @@ public class AuthenticationServiceTest extends WithService {
     public void testValid() {
         AuthenticationService service = getService(AuthenticationService.class);
         
-        String token = service.generateToken("00000000-0000-0000-000000000000");
+        String token = service.generateToken("00000000-0000-0000-0000-000000000000");
         
-        assertEquals("00000000-0000-0000-000000000000", service.identify(token));
+        assertEquals("00000000-0000-0000-0000-000000000000", service.identify(token));
     }
     
     @Test(expected = ForbiddenException.class)
