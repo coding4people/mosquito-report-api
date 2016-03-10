@@ -34,6 +34,13 @@ public class PictureBucketTest extends WithService {
     public Env getEnv() {
         return env;
     }
+    
+    @Test(expected = IllegalArgumentException.class)
+    public void testIllegalArgumentExceptionWhenBucketNameIsNull() {
+        env.register("BUCKET_NAME_PICTURE", null);
+        
+        getService(PictureBucket.class).getBucketName();
+    }
 
     @Test(expected = InternalServerErrorException.class)
     public void testThrowsInternalServerErrorException() throws IOException {
