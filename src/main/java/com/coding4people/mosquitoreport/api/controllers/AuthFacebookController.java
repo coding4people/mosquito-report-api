@@ -44,6 +44,25 @@ public class AuthFacebookController {
     @Inject
     AuthenticationService authenticationService;
 
+    /**
+     * @api {post} /auth/facebook Authenticate an user using a Facebook token
+     * @apiGroup User
+     * 
+     * @apiParam {String} token Facebook token
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *      "token": "[facebook token]"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "token": "..."
+     *     }
+     */
     @POST
     @Consumes("application/json")
     @Produces("application/json;charset=UTF-8")
