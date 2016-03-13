@@ -19,6 +19,27 @@ public class FocusController {
     @Inject FocusIndexer focusIndexer;
     @Inject FocusRepository focusRepository;
 
+    /**
+     * @api {post} /focus/query Search focuses inside an area
+     * @apiGroup Focus
+     * 
+     * @apiParam {String} latlonnw Northwestern latitude and longitude
+     * @apiParam {String} latlonse Southeastern latitude and longitude
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *       "latlonnw": "36.628611,-121.694152",
+     *       "latlonse": "34.628611,-119.694152"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "TODO": "TODO"
+     *     }
+     */
     @POST
     @Path("/query")
     @Consumes("application/json")
@@ -27,6 +48,27 @@ public class FocusController {
         return focusIndexer.search(input.getLatlonnw(), input.getLatlonse());
     }
     
+    /**
+     * @api {post} /focus/query-center Search focuses near by a single point
+     * @apiGroup Focus
+     * 
+     * @apiParam {String} latlonnw Northwestern latitude and longitude
+     * @apiParam {String} latlonse Southeastern latitude and longitude
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *       "latlonnw": "36.628611,-121.694152",
+     *       "latlonse": "34.628611,-119.694152"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "TODO": "TODO"
+     *     }
+     */
     @POST
     @Path("/query-center")
     @Consumes("application/json")
