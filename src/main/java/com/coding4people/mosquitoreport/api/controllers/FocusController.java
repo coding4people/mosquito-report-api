@@ -77,6 +77,25 @@ public class FocusController {
         return focusIndexer.searchCenter(input.getLatlon());
     }
     
+    /**
+     * @api {GET} /:guid Show focus details
+     * @apiGroup Focus
+     * 
+     * @apiParam {String} guid Focus guid
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *      "TODO": "TODO"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "TODO": "TODO"
+     *     }
+     */
     @GET
     @Path("{guid}")
     @Produces("application/json;charset=UTF-8")

@@ -24,6 +24,27 @@ public class PostFocusController {
     @Inject
     User currentUser;
 
+    /**
+     * @api {POST} /focus Create a new focus
+     * @apiGroup Focus
+     * 
+     * @apiParam {String} latlon TODO
+     * @apiParam {String} notes TODO
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *      "latlon": "35.628611,-120.694152",
+     *      "notes": "Lots of tires near 2th Street"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "TODO": "TODO"
+     *     }
+     */
     @POST
     @Consumes("application/json")
     @Produces("application/json;charset=UTF-8")

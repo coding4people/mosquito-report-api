@@ -24,6 +24,25 @@ public class SignUpController {
     @Inject EmailRepository emailRepository;
     @Inject UserRepository userRepository;
 
+    /**
+     * @api {POST} /signup/email Sign up
+     * @apiGroup User
+     * 
+     * @apiParam {String} TODO
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *      "TODO": "TODO"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "TODO": "TODO"
+     *     }
+     */
     @POST
     @Consumes("application/json")
     @Produces("application/json;charset=UTF-8")

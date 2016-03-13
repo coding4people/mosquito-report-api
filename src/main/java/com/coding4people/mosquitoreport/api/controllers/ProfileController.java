@@ -19,6 +19,25 @@ public class ProfileController {
     @Inject UserRepository userRepository;
     @Inject User currentUser;
 
+    /**
+     * @api {GET} /profile Show user profile details
+     * @apiGroup User
+     * 
+     * @apiParam {String} TODO
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *      "TODO": "TODO"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "TODO": "TODO"
+     *     }
+     */
     @GET
     @Produces("application/json;charset=UTF-8")
     public User get() {

@@ -29,6 +29,25 @@ public class ThumbsUpController {
     @Inject
     User currentUser;
 
+    /**
+     * @api {POST} /thumbsup Thumbs up
+     * @apiGroup Focus
+     * 
+     * @apiParam {String} TODO
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *      "TODO": "TODO"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "TODO": "TODO"
+     *     }
+     */
     @POST
     @Consumes("application/json")
     @Produces("application/json;charset=UTF-8")

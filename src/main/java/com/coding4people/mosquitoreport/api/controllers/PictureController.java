@@ -34,6 +34,25 @@ public class PictureController {
     @Inject
     User user;
 
+    /**
+     * @api {POST} /picture/focus/:guid Attach a picture into a facus
+     * @apiGroup Focus
+     * 
+     * @apiParam {String} guid Focus guid
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *      "TODO": "TODO"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "TODO": "TODO"
+     *     }
+     */
     @POST
     @Consumes({ MediaType.MULTIPART_FORM_DATA })
     @Produces("application/json;charset=UTF-8")

@@ -32,6 +32,25 @@ public class ResetPasswordController {
     @Inject
     EmailRepository emailRepository;
 
+    /**
+     * @api {POST} /reset-password/request Request a password reset token
+     * @apiGroup User
+     * 
+     * @apiParam {String} TODO
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *      "TODO": "TODO"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "TODO": "TODO"
+     *     }
+     */
     @POST
     @Path("/request")
     @Consumes("application/json")
@@ -55,6 +74,25 @@ public class ResetPasswordController {
         return new ObjectMapper().createObjectNode().put("status", "sent").put("debug", publicToken);
     }
     
+    /**
+     * @api {POST} /reset-password Reset user password
+     * @apiGroup User
+     * 
+     * @apiParam {String} TODO
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *      "TODO": "TODO"
+     *     }
+     * 
+     * @apiSuccessExample Success-Headers:
+     *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
+     *     {
+     *       "TODO": "TODO"
+     *     }
+     */
     @POST
     @Consumes("application/json")
     @Produces("application/json;charset=UTF-8")
