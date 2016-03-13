@@ -25,14 +25,21 @@ public class AuthEmailController {
 
     /**
      * @api {post} /auth/email Authenticate an user using his email
-     * @apiName GetUser
      * @apiGroup User
      * 
      * @apiParam {String} email
      * @apiParam {String} password
+     *
+     * @apiParamExample {json} Request-Example:
+     *     {
+     *      "email": "test@test.org",
+     *      "password": "123456"
+     *     }
      * 
-     * @apiSuccessExample Success-Response:
+     * @apiSuccessExample Success-Headers:
      *     HTTP/1.1 200 OK
+     *
+     * @apiSuccessExample Success-Response:
      *     {
      *       "token": "..."
      *     }
