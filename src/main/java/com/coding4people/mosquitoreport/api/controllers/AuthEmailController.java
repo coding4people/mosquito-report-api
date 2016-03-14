@@ -24,7 +24,7 @@ public class AuthEmailController {
     AuthenticationService authenticationService;
 
     /**
-     * @api {post} /auth/email Authenticate an user using his email
+     * @api {post} /auth/email Authenticate using email and password
      * @apiGroup User
      * 
      * @apiParam {String} email
@@ -41,7 +41,7 @@ public class AuthEmailController {
      *
      * @apiSuccessExample Success-Response:
      *     {
-     *       "token": "..."
+     *       "token": "ZjY4MDc5YmUtMmMyMy00MWRkLTljYTItMGNjNmFhMzY4YzVhLiQyYSQxMiRKNHBiSzguRm5SazFKMUlodHVJZVEuNnFsR1dxakNwZjBqRTc3LnlYVTIyNHJIcEVFWU9WLg=="
      *     }
      */
     @POST

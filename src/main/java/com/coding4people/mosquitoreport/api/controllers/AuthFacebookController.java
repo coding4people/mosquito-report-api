@@ -45,14 +45,14 @@ public class AuthFacebookController {
     AuthenticationService authenticationService;
 
     /**
-     * @api {post} /auth/facebook Authenticate an user using a Facebook token
+     * @api {post} /auth/facebook Authenticate using Facebook token
      * @apiGroup User
      * 
      * @apiParam {String} token Facebook token
      *
      * @apiParamExample {json} Request-Example:
      *     {
-     *      "token": "[facebook token]"
+     *      "token": "PYUcuKy9AS1dzfg5ZAykalms0v7OIWr3gaRZAJntrZAVURqcdZAoqlxNglQCNauZCwWHmTZAhmGGoG3clNKG7gTLV3uonzBlFVaIWGZAbrJchrTQ97AVia6ICeWqeXwg37n1XSxdXjLzQslLTV2W6CBABZB91awfooABNX7Sz6ttTbr0U2esM6uhkcLk5hAinGY7Ff99mqDECRbOOk1xRn9Ha"
      *     }
      * 
      * @apiSuccessExample Success-Headers:
@@ -60,7 +60,7 @@ public class AuthFacebookController {
      *
      * @apiSuccessExample Success-Response:
      *     {
-     *       "token": "..."
+     *       "token": "ZjY4MDc5YmUtMmMyMy00MWRkLTljYTItMGNjNmFhMzY4YzVhLiQyYSQxMiRKNHBiSzguRm5SazFKMUlodHVJZVEuNnFsR1dxakNwZjBqRTc3LnlYVTIyNHJIcEVFWU9WLg=="
      *     }
      */
     @POST
