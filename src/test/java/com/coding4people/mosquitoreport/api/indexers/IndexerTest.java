@@ -9,6 +9,8 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 
@@ -21,6 +23,8 @@ import org.mockito.Mock;
 
 import com.amazonaws.services.cloudsearchdomain.AmazonCloudSearchDomain;
 import com.amazonaws.services.cloudsearchdomain.AmazonCloudSearchDomainClient;
+import com.amazonaws.services.cloudsearchdomain.model.Hit;
+import com.amazonaws.services.cloudsearchdomain.model.Hits;
 import com.amazonaws.services.cloudsearchdomain.model.SearchRequest;
 import com.amazonaws.services.cloudsearchdomain.model.SearchResult;
 import com.amazonaws.services.cloudsearchdomain.model.UploadDocumentsRequest;
@@ -35,8 +39,10 @@ import com.coding4people.mosquitoreport.api.models.Searchable;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import jersey.repackaged.com.google.common.collect.Lists;
+import jersey.repackaged.com.google.common.collect.Maps;
 
 public class IndexerTest extends WithService {
     @Mock
@@ -97,17 +103,19 @@ public class IndexerTest extends WithService {
         when(amazonCloudSearch.describeDomains(any())).thenReturn(new DescribeDomainsResult()
                 .withDomainStatusList(Lists.newArrayList(new DomainStatus().withSearchService(new ServiceEndpoint().withEndpoint("http://localhost")))));
 
-        SearchResult expected = new SearchResult();
+        HashMap<String, List<String>> map = Maps.newHashMap();
+        map.put("property", Lists.newArrayList("value"));
+        SearchResult expected = new SearchResult().withHits(new Hits().withHit(new Hit().withFields(map)));
         
         ArgumentCaptor<SearchRequest> requestCaptor = ArgumentCaptor.forClass(SearchRequest.class);
         
         when(domain.search(requestCaptor.capture())).thenReturn(expected);
         
-        Object result = getService(ModelIndexer.class).searchCenter("0,0");
+        List<ObjectNode> result = getService(ModelIndexer.class).searchCenter("0,0");
         
         SearchRequest request = requestCaptor.getValue();
         
-        assertEquals(expected, result);
+        assertEquals("value", result.get(0).get("property").asText());
         assertEquals("latlon:['0.1,-0.1','-0.1,0.1']", request.getQuery());
         assertEquals("{\"distance\":\"haversin(0.0,0.0,latlon.latitude,latlon.longitude)\"}", request.getExpr());
         assertEquals("distance asc", request.getSort());

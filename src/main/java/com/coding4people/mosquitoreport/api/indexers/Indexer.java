@@ -18,6 +18,7 @@ import com.amazonaws.services.cloudsearchdomain.AmazonCloudSearchDomain;
 import com.amazonaws.services.cloudsearchdomain.AmazonCloudSearchDomainClient;
 import com.amazonaws.services.cloudsearchdomain.model.QueryParser;
 import com.amazonaws.services.cloudsearchdomain.model.SearchRequest;
+import com.amazonaws.services.cloudsearchdomain.model.SearchResult;
 import com.amazonaws.services.cloudsearchdomain.model.UploadDocumentsRequest;
 import com.amazonaws.services.cloudsearchv2.AmazonCloudSearch;
 import com.amazonaws.services.cloudsearchv2.model.DescribeDomainsRequest;
@@ -25,9 +26,11 @@ import com.amazonaws.services.cloudsearchv2.model.DomainStatus;
 import com.amazonaws.services.cloudsearchv2.model.ServiceEndpoint;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.coding4people.mosquitoreport.api.Env;
+import com.coding4people.mosquitoreport.api.collectors.EntrySetStringStringSetToObjectNodeCollector;
 import com.coding4people.mosquitoreport.api.models.Searchable;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 @Singleton
 abstract public class Indexer<T extends Searchable> {
@@ -77,7 +80,7 @@ abstract public class Indexer<T extends Searchable> {
     }
 
     // TODO avoid query injection
-    public Object search(String latlonnw, String latlonse) {
+    public List<ObjectNode> search(String latlonnw, String latlonse) {
         String[] latlonnwa = latlonnw.split(",");
         String[] latlonsea = latlonse.split(",");
 
@@ -96,7 +99,11 @@ abstract public class Indexer<T extends Searchable> {
 
         request.setQueryParser(QueryParser.Structured);
 
-        return domain.search(request);
+        SearchResult result = domain.search(request);
+        
+        return result.getHits().getHit().stream().map(hit -> {
+            return hit.getFields().entrySet().stream().collect(new EntrySetStringStringSetToObjectNodeCollector());
+        }).collect(Collectors.toList());
     }
 
     private Double limitLat(Double d) {
@@ -116,7 +123,7 @@ abstract public class Indexer<T extends Searchable> {
     }
     
     // TODO avoid query injection
-    public Object searchCenter(String latlon) {
+    public List<ObjectNode> searchCenter(String latlon) {
         String[] latlonnwa = latlon.split(",");
 
         Double range = 0.1D;
