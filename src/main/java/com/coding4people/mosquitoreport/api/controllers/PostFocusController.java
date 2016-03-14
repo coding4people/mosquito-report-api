@@ -59,7 +59,7 @@ public class PostFocusController {
         focus.setLatlon(input.getLatlon());
         focus.setNotes(input.getNotes());
         focus.setAuthoruserguid(currentUser.getGuid());
-        focus.setThumbsup("0");
+        focus.setThumbsup(0);
         focus.setCreatedat(Long.toString(new Date().getTime()));
 
         focusRepository.save(focus);

@@ -21,8 +21,7 @@ public class Focus implements Searchable {
     private String notes;
     
     @DynamoDBAttribute
-    // There is a bug on DynamoDB local parsing numbers ):
-    private String thumbsup;
+    private Integer thumbsup;
     
     @DynamoDBAttribute
     private String authoruserguid;
@@ -59,18 +58,18 @@ public class Focus implements Searchable {
         this.notes = notes;
     }
 
-    public String getThumbsup() {
+    public Integer getThumbsup() {
         return thumbsup;
     }
 
-    public void setThumbsup(String thumbsup) {
+    public void setThumbsup(Integer thumbsup) {
         this.thumbsup = thumbsup;
     }
     
     @JsonIgnore
     @DynamoDBIgnore
     public Focus thumbsup() {
-        thumbsup = new Integer(Integer.parseInt(thumbsup) + 1).toString();
+        thumbsup += 1;
         
         return this;
     }

@@ -68,7 +68,7 @@ public class ThumbsUpControllerTest extends WithServer {
         
         Focus focus = new Focus();
         focus.setGuid("00000000-0000-0000-0000-000000000000");
-        focus.setThumbsup("99");
+        focus.setThumbsup(99);
 
         when(thumbsUpRepository.load("00000000-0000-0000-0000-000000000000", "99999999-9999-9999-9999-999999999999"))
                 .thenReturn(null);
@@ -92,6 +92,6 @@ public class ThumbsUpControllerTest extends WithServer {
         assertEquals("99999999-9999-9999-9999-999999999999", thumbsUp.getUserguid());
 
         ObjectNode json = response.readEntity(ObjectNode.class);
-        assertEquals("100", json.get("thumbsup").asText());
+        assertEquals(100, json.get("thumbsup").asInt());
     }
 }
