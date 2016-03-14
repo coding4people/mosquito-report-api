@@ -33,8 +33,8 @@ public class PostFocusController {
      *
      * @apiParamExample {json} Request-Example:
      *     {
-     *      "latlon": "35.628611,-120.694152",
-     *      "notes": "Lots of tires near 2th Street"
+     *       "latlon": "35.628611,-120.694152",
+     *       "notes": "Lots of tires near 2th Street"
      *     }
      * 
      * @apiSuccessExample Success-Headers:
@@ -55,7 +55,7 @@ public class PostFocusController {
         focus.setNotes(input.getNotes());
         focus.setAuthoruserguid(currentUser.getGuid());
         focus.setThumbsup("0");
-        focus.setCreateat(Long.toString(new Date().getTime()));
+        focus.setCreatedat(Long.toString(new Date().getTime()));
 
         focusRepository.save(focus);
         focusIndexer.index(focus);

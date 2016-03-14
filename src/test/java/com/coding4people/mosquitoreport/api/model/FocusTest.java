@@ -11,7 +11,7 @@ public class FocusTest {
     public void testGetSearchId() {
         Focus focus = new Focus();
         focus.setGuid("00000000-0000-0000-0000-000000000000");
-        focus.setCreateat("1457649270");
+        focus.setCreatedat("1457649270");
         
         assertEquals("00000000-0000-0000-0000-000000000000_1457649270", focus.getSearchId());
     }

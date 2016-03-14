@@ -12,7 +12,7 @@ public class Focus implements Searchable {
     private String guid;
     
     @DynamoDBRangeKey
-    private String createat;
+    private String createdat;
     
     @DynamoDBAttribute
     private String latlon;
@@ -36,11 +36,11 @@ public class Focus implements Searchable {
     }
     
     public String getCreateat() {
-        return createat;
+        return createdat;
     }
     
-    public void setCreateat(String createat) {
-        this.createat = createat;
+    public void setCreatedat(String createdat) {
+        this.createdat = createdat;
     }
     
     public String getLatlon() {
@@ -86,6 +86,6 @@ public class Focus implements Searchable {
     @JsonIgnore
     public String getSearchId() {
         // We use this format to make it easy to index all data using AWS Console
-        return guid + "_" + createat;
+        return guid + "_" + createdat;
     }
 }
