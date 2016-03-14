@@ -47,7 +47,7 @@ public class PostFocusController {
      *       "notes": "Lots of tires near 2th Street",
      *       "thumbsup": "0",
      *       "authoruserguid": "f68079be-2c23-41dd-9ca2-0cc6aa368c5a",
-     *       "createat": "1457995237696"
+     *       "createdat": "1457995237696"
      *     }
      */
     @POST
