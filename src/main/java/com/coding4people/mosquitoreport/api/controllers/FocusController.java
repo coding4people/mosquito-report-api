@@ -20,7 +20,7 @@ public class FocusController {
     @Inject FocusRepository focusRepository;
 
     /**
-     * @api {post} /focus/query Search focuses inside an area
+     * @api {post} /focus/query Search focus inside a squared area
      * @apiGroup Focus
      * 
      * @apiParam {String} latlonnw Northwestern latitude and longitude
@@ -28,17 +28,30 @@ public class FocusController {
      *
      * @apiParamExample {json} Request-Example:
      *     {
-     *       "latlonnw": "36.628611,-121.694152",
-     *       "latlonse": "34.628611,-119.694152"
+     *       "latlonnw": "-22.6993761,-47.4095964",
+     *       "latlonse": "-24.6993761,-45.4095964"
      *     }
      * 
      * @apiSuccessExample Success-Headers:
      *     HTTP/1.1 200 OK
      *
      * @apiSuccessExample Success-Response:
-     *     {
-     *       "TODO": "TODO"
-     *     }
+     *     [
+     *       {
+     *         "latlon": "-23.6993761,-46.4095964",
+     *         "authoruserguid": "f68079be-2c23-41dd-9ca2-0cc6aa368c5a",
+     *         "guid": "c6e376cb-2e3b-4721-b22b-0c07eb06a835",
+     *         "thumbsup": "0",
+     *         "createdat": "1457646582199"
+     *       },
+     *       {
+     *         "latlon": "-23.697866,-46.408891",
+     *         "authoruserguid": "f68079be-2c23-41dd-9ca2-0cc6aa368c5a",
+     *         "guid": "c329f1ea-78b6-42a6-ac7e-b7959a0ef8f8",
+     *         "thumbsup": "0",
+     *         "createdat": "1457646640229"
+     *       }
+     *   ]
      */
     @POST
     @Path("/query")
@@ -52,22 +65,33 @@ public class FocusController {
      * @api {post} /focus/query-center Search focuses near by a single point
      * @apiGroup Focus
      * 
-     * @apiParam {String} latlonnw Northwestern latitude and longitude
-     * @apiParam {String} latlonse Southeastern latitude and longitude
+     * @apiParam {String} latlon Latitude and longitude
      *
      * @apiParamExample {json} Request-Example:
      *     {
-     *       "latlonnw": "36.628611,-121.694152",
-     *       "latlonse": "34.628611,-119.694152"
+     *       "latlon": "-23.6993761,-46.4095964",
      *     }
      * 
      * @apiSuccessExample Success-Headers:
      *     HTTP/1.1 200 OK
      *
      * @apiSuccessExample Success-Response:
-     *     {
-     *       "TODO": "TODO"
-     *     }
+     *     [
+     *       {
+     *         "latlon": "-23.6993761,-46.4095964",
+     *         "authoruserguid": "f68079be-2c23-41dd-9ca2-0cc6aa368c5a",
+     *         "guid": "c6e376cb-2e3b-4721-b22b-0c07eb06a835",
+     *         "thumbsup": "0",
+     *         "createdat": "1457646582199"
+     *       },
+     *       {
+     *         "latlon": "-23.697866,-46.408891",
+     *         "authoruserguid": "f68079be-2c23-41dd-9ca2-0cc6aa368c5a",
+     *         "guid": "c329f1ea-78b6-42a6-ac7e-b7959a0ef8f8",
+     *         "thumbsup": "0",
+     *         "createdat": "1457646640229"
+     *       }
+     *   ]
      */
     @POST
     @Path("/query-center")
@@ -84,16 +108,19 @@ public class FocusController {
      * @apiParam {String} guid Focus guid
      *
      * @apiParamExample {json} Request-Example:
-     *     {
-     *      "TODO": "TODO"
-     *     }
+     *     /focus/d35d4485-9dc1-4f44-880e-f94bf773c420
      * 
      * @apiSuccessExample Success-Headers:
      *     HTTP/1.1 200 OK
      *
      * @apiSuccessExample Success-Response:
      *     {
-     *       "TODO": "TODO"
+     *       "guid": "d35d4485-9dc1-4f44-880e-f94bf773c420",
+     *       "createdat": "1457998498349",
+     *       "latlon": "-23.6993761,-46.4095964",
+     *       "notes": "Lots of tires near 2th Street",
+     *       "thumbsup": "0",
+     *       "authoruserguid": "f68079be-2c23-41dd-9ca2-0cc6aa368c5a"
      *     }
      */
     @GET
