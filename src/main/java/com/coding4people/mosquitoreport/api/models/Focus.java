@@ -87,7 +87,6 @@ public class Focus implements Searchable {
     @JsonIgnore
     @DynamoDBIgnore
     public String getSearchId() {
-        // We use this format to make it easy to index all data using AWS Console
-        return guid + "_" + createdat;
+        return guid;
     }
 }
