@@ -35,7 +35,7 @@ public class Focus implements Searchable {
         this.guid = guid;
     }
     
-    public String getCreateat() {
+    public String getCreatedat() {
         return createdat;
     }
     

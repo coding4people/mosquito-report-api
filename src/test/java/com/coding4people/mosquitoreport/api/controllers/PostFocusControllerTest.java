@@ -45,6 +45,6 @@ public class PostFocusControllerTest extends WithServer {
 
         assertNotNull(focus.getGuid());
         assertEquals("35.628611,-120.694152", focus.getLatlon());
-        assertNotNull(focus.getCreateat());
+        assertNotNull(focus.getCreatedat());
     }
 }
