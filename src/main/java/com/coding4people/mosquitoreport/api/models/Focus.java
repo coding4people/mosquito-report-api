@@ -3,7 +3,6 @@ package com.coding4people.mosquitoreport.api.models;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -12,7 +11,7 @@ public class Focus implements Searchable {
     @DynamoDBHashKey
     private String guid;
     
-    @DynamoDBRangeKey
+    @DynamoDBAttribute
     private String createdat;
     
     @DynamoDBAttribute
