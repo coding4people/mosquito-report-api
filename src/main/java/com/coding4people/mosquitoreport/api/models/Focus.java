@@ -69,6 +69,7 @@ public class Focus implements Searchable {
     }
     
     @JsonIgnore
+    @DynamoDBIgnore
     public Focus thumbsup() {
         thumbsup = new Integer(Integer.parseInt(thumbsup) + 1).toString();
         
