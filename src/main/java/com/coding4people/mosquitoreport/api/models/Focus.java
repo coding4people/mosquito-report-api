@@ -2,6 +2,7 @@ package com.coding4people.mosquitoreport.api.models;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBIgnore;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -84,6 +85,7 @@ public class Focus implements Searchable {
 
     @Override
     @JsonIgnore
+    @DynamoDBIgnore
     public String getSearchId() {
         // We use this format to make it easy to index all data using AWS Console
         return guid + "_" + createdat;
