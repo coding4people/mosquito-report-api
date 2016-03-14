@@ -28,12 +28,12 @@ public class PostFocusController {
      * @api {post} /focus Create a new focus
      * @apiGroup Focus
      * 
-     * @apiParam {String} latlon TODO
-     * @apiParam {String} notes TODO
+     * @apiParam {String} latlon Latitude and longitude
+     * @apiParam {String} notes
      *
      * @apiParamExample {json} Request-Example:
      *     {
-     *       "latlon": "35.628611,-120.694152",
+     *       "latlon": "-23.6993761,-46.4095964",
      *       "notes": "Lots of tires near 2th Street"
      *     }
      * 
@@ -42,7 +42,12 @@ public class PostFocusController {
      *
      * @apiSuccessExample Success-Response:
      *     {
-     *       "TODO": "TODO"
+     *       "guid": "b64c60d2-c18d-4f19-ac7d-5ecf6039103c",
+     *       "latlon": "-23.6993761,-46.4095964",
+     *       "notes": "Lots of tires near 2th Street",
+     *       "thumbsup": "0",
+     *       "authoruserguid": "f68079be-2c23-41dd-9ca2-0cc6aa368c5a",
+     *       "createat": "1457995237696"
      *     }
      */
     @POST
