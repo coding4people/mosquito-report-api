@@ -30,7 +30,7 @@ public class ThumbsUpController {
     User currentUser;
 
     /**
-     * @api {POST} /thumbsup Thumbs up
+     * @api {post} /thumbsup Thumbs up
      * @apiGroup Focus
      * 
      * @apiParam {String} TODO

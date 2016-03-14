@@ -25,7 +25,7 @@ public class PostFocusController {
     User currentUser;
 
     /**
-     * @api {POST} /focus Create a new focus
+     * @api {post} /focus Create a new focus
      * @apiGroup Focus
      * 
      * @apiParam {String} latlon TODO

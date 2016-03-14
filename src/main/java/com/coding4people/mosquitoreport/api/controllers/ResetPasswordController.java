@@ -33,7 +33,7 @@ public class ResetPasswordController {
     EmailRepository emailRepository;
 
     /**
-     * @api {POST} /reset-password/request Request a password reset token
+     * @api {post} /reset-password/request Request a password reset token
      * @apiGroup User
      * 
      * @apiParam {String} TODO
@@ -75,7 +75,7 @@ public class ResetPasswordController {
     }
     
     /**
-     * @api {POST} /reset-password Reset user password
+     * @api {post} /reset-password Reset user password
      * @apiGroup User
      * 
      * @apiParam {String} TODO

@@ -25,7 +25,7 @@ public class SignUpController {
     @Inject UserRepository userRepository;
 
     /**
-     * @api {POST} /signup/email Sign up
+     * @api {post} /signup/email Sign up
      * @apiGroup User
      * 
      * @apiParam {String} TODO

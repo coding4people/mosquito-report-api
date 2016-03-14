@@ -35,7 +35,7 @@ public class PictureController {
     User user;
 
     /**
-     * @api {POST} /picture/focus/:guid Attach a picture into a facus
+     * @api {post} /picture/focus/:guid Attach a picture into a facus
      * @apiGroup Focus
      * 
      * @apiParam {String} guid Focus guid

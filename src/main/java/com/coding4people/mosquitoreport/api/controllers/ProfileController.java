@@ -20,7 +20,7 @@ public class ProfileController {
     @Inject User currentUser;
 
     /**
-     * @api {GET} /profile Show user profile details
+     * @api {get} /profile Show user profile details
      * @apiGroup User
      * 
      * @apiParam {String} TODO
