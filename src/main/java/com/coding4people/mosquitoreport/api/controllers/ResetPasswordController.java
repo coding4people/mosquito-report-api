@@ -36,20 +36,15 @@ public class ResetPasswordController {
      * @api {post} /reset-password/request Request a password reset token
      * @apiGroup User
      * 
-     * @apiParam {String} TODO
+     * @apiParam {String} email
      *
      * @apiParamExample {json} Request-Example:
      *     {
-     *      "TODO": "TODO"
+     *       "email": "test@test.org"
      *     }
      * 
      * @apiSuccessExample Success-Headers:
      *     HTTP/1.1 200 OK
-     *
-     * @apiSuccessExample Success-Response:
-     *     {
-     *       "TODO": "TODO"
-     *     }
      */
     @POST
     @Path("/request")
@@ -78,20 +73,19 @@ public class ResetPasswordController {
      * @api {post} /reset-password Reset user password
      * @apiGroup User
      * 
-     * @apiParam {String} TODO
+     * @apiParam {String} email
+     * @apiParam {String} token
+     * @apiParam {String} newPassword
      *
      * @apiParamExample {json} Request-Example:
      *     {
-     *      "TODO": "TODO"
+     *       "email": "test@test.org",
+     *       "token": "MTQ1ODQzNjA4OC4zNTE4ODEwYi0zNmQwLTQwNzItYTU0Ni02NTQwM2QwYTgwNTc=",
+     *       "newPassword": "123456"
      *     }
      * 
      * @apiSuccessExample Success-Headers:
      *     HTTP/1.1 200 OK
-     *
-     * @apiSuccessExample Success-Response:
-     *     {
-     *       "TODO": "TODO"
-     *     }
      */
     @POST
     @Consumes("application/json")
