@@ -51,7 +51,7 @@ public class FocusController {
      *         "thumbsup": "0",
      *         "createdat": "1457646640229"
      *       }
-     *   ]
+     *     ]
      */
     @POST
     @Path("/query")
@@ -91,7 +91,7 @@ public class FocusController {
      *         "thumbsup": "0",
      *         "createdat": "1457646640229"
      *       }
-     *   ]
+     *     ]
      */
     @POST
     @Path("/query-center")
