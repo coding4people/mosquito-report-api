@@ -23,19 +23,19 @@ public class ProfileController {
      * @api {get} /profile Show user profile details
      * @apiGroup User
      * 
-     * @apiParam {String} TODO
-     *
-     * @apiParamExample {json} Request-Example:
-     *     {
-     *      "TODO": "TODO"
-     *     }
-     * 
      * @apiSuccessExample Success-Headers:
      *     HTTP/1.1 200 OK
      *
      * @apiSuccessExample Success-Response:
      *     {
-     *       "TODO": "TODO"
+     *       "guid": "f68079be-2c23-41dd-9ca2-0cc6aa368c5a",
+     *       "email": "test@test.org",
+     *       "firstname": "Rogério",
+     *       "lastname": "Yokomizo",
+     *       "location": null,
+     *       "facebookurl": null,
+     *       "twitter": null,
+     *       "profilepictureguid": null
      *     }
      */
     @GET
