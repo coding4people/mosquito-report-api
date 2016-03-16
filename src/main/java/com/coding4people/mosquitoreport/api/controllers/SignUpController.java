@@ -32,7 +32,10 @@ public class SignUpController {
      *
      * @apiParamExample {json} Request-Example:
      *     {
-     *      "TODO": "TODO"
+     *       "email": "test@test.org",
+     *       "firstname": "Rogério",
+     *       "lastname": "Yokomizo",
+     *       "password": "123456"
      *     }
      * 
      * @apiSuccessExample Success-Headers:
@@ -40,7 +43,14 @@ public class SignUpController {
      *
      * @apiSuccessExample Success-Response:
      *     {
-     *       "TODO": "TODO"
+     *       "guid": "ffcec387-81fe-4e8e-985e-4025a65b036e",
+     *       "email": "test@test.org",
+     *       "firstname": "Rogério",
+     *       "lastname": "Yokomizo",
+     *       "location": null,
+     *       "facebookurl": null,
+     *       "twitter": null,
+     *       "profilepictureguid": null
      *     }
      */
     @POST
