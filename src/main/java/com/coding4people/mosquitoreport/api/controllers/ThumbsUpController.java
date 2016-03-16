@@ -37,7 +37,7 @@ public class ThumbsUpController {
      *
      * @apiParamExample {json} Request-Example:
      *     {
-     *      "TODO": "TODO"
+     *       "focusguid": "a92ea2d2-6d7f-49ac-bdd4-61660f703406"
      *     }
      * 
      * @apiSuccessExample Success-Headers:
@@ -45,7 +45,7 @@ public class ThumbsUpController {
      *
      * @apiSuccessExample Success-Response:
      *     {
-     *       "TODO": "TODO"
+     *       "thumbsup": 1
      *     }
      */
     @POST
